@@ -22,7 +22,7 @@ import paint.algorithm.AlgorithmFactory;
  */
 public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     
-    private Paint paint;
+    private final Paint paint;
     private Settings settings;
     private JLabel brushSizeLabel, brushColorLabel, algorithmLabel;
     private JSpinner brushSizeSpinner;
@@ -71,7 +71,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == brushColorButton) {
             Color initial = settings.getPaintColor();
-            Color choice = JColorChooser.showDialog(this, "Chooose brush color", initial);
+            Color choice = JColorChooser.showDialog(this, "Chooose a color", initial);
             if (choice != null) {
                 brushColorButton.setColor(choice);
                 settings.setPaintColor(choice);
