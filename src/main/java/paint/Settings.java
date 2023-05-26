@@ -10,7 +10,8 @@ public class Settings {
     
     private int brushSize;
     private Color paintColor;
-    private static Settings instance;
+    
+    private static final Settings instance = new Settings();
     
     private Settings() {
         brushSize = 10;
@@ -34,9 +35,6 @@ public class Settings {
     }
     
     public static Settings getInstance() {
-        if (instance == null) {
-            instance = new Settings();
-        }
         return instance;
     }
 }
