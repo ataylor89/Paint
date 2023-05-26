@@ -1,5 +1,7 @@
 package paint;
 
+import paint.algorithm.Algorithm;
+import paint.algorithm.AlgorithmFactory;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,8 +15,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import paint.algorithm.Algorithm;
-import paint.algorithm.AlgorithmFactory;
 
 /**
  *

@@ -1,6 +1,5 @@
 package paint;
 
-import java.awt.Color;
 import paint.algorithm.Algorithm;
 import paint.algorithm.AlgorithmFactory;
 import java.awt.Cursor;
