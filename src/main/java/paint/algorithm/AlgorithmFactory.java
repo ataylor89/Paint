@@ -6,21 +6,15 @@ package paint.algorithm;
  */
 public class AlgorithmFactory {
     
-    private static Algorithm sparse;
-    private static Algorithm line;
+    public static final SparseBrush SPARSE_BRUSH = new SparseBrush();
+    public static final LineTool LINE_TOOL = new LineTool();
     
     public static Algorithm getAlgorithm(String name) {
         if (name.equals("Sparse")) {
-            if (sparse == null) {
-                sparse = new SparseBrush();
-            }
-            return sparse;
+            return SPARSE_BRUSH;
         }
         if (name.equals("Line")) {
-            if (line == null) {
-                line = new LineTool();
-            }
-            return line;
+            return LINE_TOOL;
         }
         return null;
     }
