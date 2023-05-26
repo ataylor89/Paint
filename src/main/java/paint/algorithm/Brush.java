@@ -1,20 +1,20 @@
 package paint.algorithm;
 
+import paint.Settings;
+import paint.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import paint.Canvas;
-import paint.Settings;
 
 /**
  *
  * @author andrewtaylor
  */
-public class EraseTool implements Algorithm {
-
+public class Brush implements Algorithm {
+    
     private boolean brushDown;
     
-    public EraseTool() {
+    public Brush() {
         brushDown = false;
     }
 
@@ -34,7 +34,7 @@ public class EraseTool implements Algorithm {
             Settings settings = Settings.getInstance();
             int x = event.getX();
             int y = event.getY();
-            Color brushColor = canvas.getBackground();
+            Color brushColor = settings.getPaintColor();
             int brushSize = settings.getBrushSize();
             graphics.setColor(brushColor);
             graphics.drawOval(x, y, brushSize, brushSize);
@@ -44,5 +44,4 @@ public class EraseTool implements Algorithm {
 
     @Override
     public void mouseDragged(MouseEvent event) {}
-    
 }

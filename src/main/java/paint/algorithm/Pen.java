@@ -10,12 +10,12 @@ import java.awt.event.MouseEvent;
  *
  * @author andrewtaylor
  */
-public class LineTool implements Algorithm {
+public class Pen implements Algorithm {
 
     private boolean penDown;
     private int lastX, lastY;
     
-    public LineTool() {
+    public Pen() {
         penDown = false;
         lastX = -1;
         lastY = -1;

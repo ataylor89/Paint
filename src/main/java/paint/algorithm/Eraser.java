@@ -1,20 +1,20 @@
 package paint.algorithm;
 
-import paint.Settings;
-import paint.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import paint.Canvas;
+import paint.Settings;
 
 /**
  *
  * @author andrewtaylor
  */
-public class SparseBrush implements Algorithm {
-    
+public class Eraser implements Algorithm {
+
     private boolean brushDown;
     
-    public SparseBrush() {
+    public Eraser() {
         brushDown = false;
     }
 
@@ -34,7 +34,7 @@ public class SparseBrush implements Algorithm {
             Settings settings = Settings.getInstance();
             int x = event.getX();
             int y = event.getY();
-            Color brushColor = settings.getPaintColor();
+            Color brushColor = canvas.getBackground();
             int brushSize = settings.getBrushSize();
             graphics.setColor(brushColor);
             graphics.drawOval(x, y, brushSize, brushSize);
@@ -44,4 +44,5 @@ public class SparseBrush implements Algorithm {
 
     @Override
     public void mouseDragged(MouseEvent event) {}
+    
 }
