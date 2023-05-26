@@ -30,10 +30,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     
     private void init() {
         algorithm = AlgorithmFactory.getAlgorithm("Sparse");
-        addMouseListener(this);
-        addMouseMotionListener(this);
         Cursor cursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
         setCursor(cursor);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     @Override
