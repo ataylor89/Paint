@@ -1,7 +1,7 @@
 package paint.algorithm;
 
-import paint.Settings;
 import paint.Canvas;
+import paint.Settings;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
