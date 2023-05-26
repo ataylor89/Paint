@@ -54,7 +54,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         add(brushColorButton);
         algorithmLabel = new JLabel("Algorithm:");
         add(algorithmLabel);
-        String[] algorithms = new String[] {"Sparse", "Line"};
+        String[] algorithms = new String[] {"Sparse", "Line", "Erase"};
         algorithmCombo = new JComboBox(algorithms);
         algorithmCombo.addActionListener(this);
         add(algorithmCombo);
