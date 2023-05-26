@@ -9,12 +9,12 @@ import java.awt.Color;
 public class Settings {
     
     private int brushSize;
-    private Color brushColor;
+    private Color paintColor;
     private static Settings instance;
     
     private Settings() {
         brushSize = 10;
-        brushColor = new Color(0,153,255);
+        paintColor = new Color(0,153,255);
     }
     
     public void setBrushSize(int brushSize) {
@@ -25,12 +25,12 @@ public class Settings {
         return brushSize;
     }
     
-    public void setBrushColor(Color brushColor) {
-        this.brushColor = brushColor;
+    public void setPaintColor(Color brushColor) {
+        this.paintColor = brushColor;
     }
     
-    public Color getBrushColor() {
-        return brushColor;
+    public Color getPaintColor() {
+        return paintColor;
     }
     
     public static Settings getInstance() {

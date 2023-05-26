@@ -6,12 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import paint.algorithm.Algorithm;
+import paint.algorithm.AlgorithmFactory;
 
 /**
  *
@@ -19,13 +22,16 @@ import javax.swing.event.ChangeListener;
  */
 public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     
+    private Paint paint;
     private Settings settings;
-    private JLabel brushSizeLabel, brushColorLabel;
+    private JLabel brushSizeLabel, brushColorLabel, algorithmLabel;
     private JSpinner brushSizeSpinner;
     private ColorSample brushColorButton;
+    private JComboBox algorithmCombo;
     
-    public TopPanel() {
+    public TopPanel(Paint paint) {
         super();
+        this.paint = paint;
         init();
     }
     
@@ -34,7 +40,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
-        Color brushColor= settings.getBrushColor();
+        Color brushColor= settings.getPaintColor();
         brushSizeLabel = new JLabel("Brush size:");
         add(brushSizeLabel);
         SpinnerNumberModel model = new SpinnerNumberModel(brushSize, 1, 20, 1);
@@ -46,6 +52,12 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         brushColorButton = new ColorSample(brushColor, 16, 16);
         brushColorButton.addActionListener(this);
         add(brushColorButton);
+        algorithmLabel = new JLabel("Algorithm:");
+        add(algorithmLabel);
+        String[] algorithms = new String[] {"Sparse", "Line"};
+        algorithmCombo = new JComboBox(algorithms);
+        algorithmCombo.addActionListener(this);
+        add(algorithmCombo);
     }
 
     @Override
@@ -57,11 +69,19 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Color initial = settings.getBrushColor();
-        Color choice = JColorChooser.showDialog(this, "Chooose brush color", initial);
-        if (choice != null) {
-            brushColorButton.setColor(choice);
-            settings.setBrushColor(choice);
+        if (e.getSource() == brushColorButton) {
+            Color initial = settings.getPaintColor();
+            Color choice = JColorChooser.showDialog(this, "Chooose brush color", initial);
+            if (choice != null) {
+                brushColorButton.setColor(choice);
+                settings.setPaintColor(choice);
+            }
+        }
+        else if (e.getSource() == algorithmCombo) {
+            String value = (String) algorithmCombo.getSelectedItem();
+            Algorithm algorithm = AlgorithmFactory.getAlgorithm(value);
+            Canvas canvas = paint.getCanvas();
+            canvas.setAlgorithm(algorithm);
         }
     }
 }

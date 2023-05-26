@@ -1,12 +1,11 @@
 package paint;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
+import paint.algorithm.Algorithm;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
+import paint.algorithm.AlgorithmFactory;
 
 /**
  *
@@ -14,13 +13,22 @@ import javax.swing.JPanel;
  */
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
     
-    private boolean brushDown = false;
+    private Algorithm algorithm;
     
     public Canvas() {
         init();
     }
     
+    public void setAlgorithm(Algorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+    
+    public Algorithm getAlgorithm() {
+        return algorithm;
+    }
+    
     private void init() {
+        algorithm = AlgorithmFactory.getAlgorithm("Sparse");
         addMouseListener(this);
         addMouseMotionListener(this);
     }
@@ -30,16 +38,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (!brushDown) {
-            brushDown = true;
-            Cursor cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
-            setCursor(cursor);
-        }
-        else {
-            brushDown = false;
-            Cursor cursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-            setCursor(cursor);
-        }
+        algorithm.mousePressed(this, e);
     }
 
     @Override
@@ -52,20 +51,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {
+        algorithm.mouseDragged(this, e);
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (brushDown) {
-            Graphics graphics = super.getGraphics();
-            Settings settings = Settings.getInstance();
-            int x = e.getX();
-            int y = e.getY();
-            Color brushColor = settings.getBrushColor();
-            int brushSize = settings.getBrushSize();
-            graphics.setColor(brushColor);
-            graphics.drawOval(x, y, brushSize, brushSize);
-            graphics.fillOval(x, y, brushSize, brushSize);
-        }
+        algorithm.mouseMoved(this, e);
     }
 }

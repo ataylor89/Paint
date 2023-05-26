@@ -25,7 +25,7 @@ public class Paint extends JFrame implements ActionListener {
         contentPane = new JPanel();
         contentPane.setPreferredSize(new Dimension(1200, 900));
         contentPane.setLayout(new BorderLayout());
-        toolbar = new TopPanel();
+        toolbar = new TopPanel(this);
         contentPane.add(toolbar, BorderLayout.NORTH);
         canvas = new Canvas();
         contentPane.add(canvas, BorderLayout.CENTER);
@@ -38,6 +38,10 @@ public class Paint extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
+    }
+    
+    public Canvas getCanvas() {
+        return canvas;
     }
     
     public static void main(String[] args) {
