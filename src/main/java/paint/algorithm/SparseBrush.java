@@ -20,7 +20,8 @@ public class SparseBrush implements Algorithm {
     }
 
     @Override
-    public void mousePressed(Canvas canvas, MouseEvent event) {
+    public void mousePressed(MouseEvent event) {
+        Canvas canvas = (Canvas) event.getSource();
         if (!brushDown) {
             brushDown = true;
             Cursor cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
@@ -34,11 +35,12 @@ public class SparseBrush implements Algorithm {
     }
 
     @Override
-    public void mouseReleased(Canvas canvas, MouseEvent event) {}
+    public void mouseReleased(MouseEvent event) {}
 
     @Override
-    public void mouseMoved(Canvas canvas, MouseEvent event) {
+    public void mouseMoved(MouseEvent event) {
         if (brushDown) {
+            Canvas canvas = (Canvas) event.getSource();
             Graphics graphics = canvas.getGraphics();
             Settings settings = Settings.getInstance();
             int x = event.getX();
@@ -52,5 +54,5 @@ public class SparseBrush implements Algorithm {
     }
 
     @Override
-    public void mouseDragged(Canvas canvas, MouseEvent event) {}
+    public void mouseDragged(MouseEvent event) {}
 }

@@ -20,23 +20,24 @@ public class LineTool implements Algorithm {
     }
     
     @Override
-    public void mousePressed(Canvas canvas, MouseEvent event) {
+    public void mousePressed(MouseEvent event) {
         lastX = event.getX();
         lastY = event.getY();
     }
 
     @Override
-    public void mouseReleased(Canvas canvas, MouseEvent event) {
+    public void mouseReleased(MouseEvent event) {
         lastX = -1;
         lastY = -1;
     }
 
     @Override
-    public void mouseMoved(Canvas canvas, MouseEvent event) {}
+    public void mouseMoved(MouseEvent event) {}
 
     @Override
-    public void mouseDragged(Canvas canvas, MouseEvent event) {
+    public void mouseDragged(MouseEvent event) {
         if (lastX > 0 && lastY > 0) {
+            Canvas canvas = (Canvas) event.getSource();
             Graphics graphics = canvas.getGraphics();
             Settings settings = Settings.getInstance();
             Color paintColor = settings.getPaintColor();
