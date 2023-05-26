@@ -43,7 +43,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         Color brushColor= settings.getPaintColor();
         brushSizeLabel = new JLabel("Brush size:");
         add(brushSizeLabel);
-        SpinnerNumberModel model = new SpinnerNumberModel(brushSize, 1, 20, 1);
+        SpinnerNumberModel model = new SpinnerNumberModel(brushSize, 1, 100, 1);
         brushSizeSpinner = new JSpinner(model);
         brushSizeSpinner.addChangeListener(this);
         add(brushSizeSpinner);
