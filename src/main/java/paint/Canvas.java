@@ -1,12 +1,12 @@
 package paint;
 
-import java.awt.Cursor;
 import paint.algorithm.Algorithm;
+import paint.algorithm.AlgorithmFactory;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
-import paint.algorithm.AlgorithmFactory;
 
 /**
  *
