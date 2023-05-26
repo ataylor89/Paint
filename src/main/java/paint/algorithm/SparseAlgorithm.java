@@ -1,11 +1,11 @@
 package paint.algorithm;
 
-import java.awt.Color;
+import paint.Settings;
 import paint.Canvas;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import paint.Settings;
 
 /**
  *
