@@ -11,11 +11,11 @@ import java.awt.event.MouseEvent;
  *
  * @author andrewtaylor
  */
-public class SparseAlgorithm implements Algorithm {
+public class SparseBrush implements Algorithm {
     
     private boolean brushDown;
     
-    public SparseAlgorithm() {
+    public SparseBrush() {
         brushDown = false;
     }
 

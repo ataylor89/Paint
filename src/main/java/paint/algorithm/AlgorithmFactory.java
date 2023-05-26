@@ -12,13 +12,13 @@ public class AlgorithmFactory {
     public static Algorithm getAlgorithm(String name) {
         if (name.equals("Sparse")) {
             if (sparse == null) {
-                sparse = new SparseAlgorithm();
+                sparse = new SparseBrush();
             }
             return sparse;
         }
         if (name.equals("Line")) {
             if (line == null) {
-                line = new LineAlgorithm();
+                line = new LineTool();
             }
             return line;
         }
