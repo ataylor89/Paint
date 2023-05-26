@@ -23,7 +23,7 @@ public class Paint extends JFrame implements ActionListener {
     
     public void createAndShowGui() {
         contentPane = new JPanel();
-        contentPane.setPreferredSize(new Dimension(1200, 900));
+        contentPane.setPreferredSize(new Dimension(1200, 775));
         contentPane.setLayout(new BorderLayout());
         toolbar = new TopPanel(this);
         contentPane.add(toolbar, BorderLayout.NORTH);
