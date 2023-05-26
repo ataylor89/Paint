@@ -17,10 +17,26 @@ public class Eraser implements Algorithm {
     public Eraser() {
         brushDown = false;
     }
-
+    
+    public void applyDot(Canvas canvas, int x, int y) {
+        Graphics graphics = canvas.getGraphics();
+        Settings settings = Settings.getInstance();
+        Color color = canvas.getBackground();
+        int diameter = settings.getBrushSize();
+        graphics.setColor(color);
+        graphics.drawOval(x, y, diameter, diameter);
+        graphics.fillOval(x, y, diameter, diameter);
+    }
+    
     @Override
     public void mousePressed(MouseEvent event) {
         brushDown = !brushDown;
+        if (brushDown) {
+            Canvas canvas = (Canvas) event.getSource();
+            int x = event.getX();
+            int y = event.getY();
+            applyDot(canvas, x, y);
+        }
     }
 
     @Override
@@ -30,15 +46,9 @@ public class Eraser implements Algorithm {
     public void mouseMoved(MouseEvent event) {
         if (brushDown) {
             Canvas canvas = (Canvas) event.getSource();
-            Graphics graphics = canvas.getGraphics();
-            Settings settings = Settings.getInstance();
             int x = event.getX();
             int y = event.getY();
-            Color brushColor = canvas.getBackground();
-            int brushSize = settings.getBrushSize();
-            graphics.setColor(brushColor);
-            graphics.drawOval(x, y, brushSize, brushSize);
-            graphics.fillOval(x, y, brushSize, brushSize);
+            applyDot(canvas, x, y);
         }
     }
 
