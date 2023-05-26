@@ -3,7 +3,6 @@ package paint.algorithm;
 import paint.Settings;
 import paint.Canvas;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
@@ -21,17 +20,7 @@ public class SparseBrush implements Algorithm {
 
     @Override
     public void mousePressed(MouseEvent event) {
-        Canvas canvas = (Canvas) event.getSource();
-        if (!brushDown) {
-            brushDown = true;
-            Cursor cursor = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
-            canvas.setCursor(cursor);
-        }
-        else {
-            brushDown = false;
-            Cursor cursor = Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-            canvas.setCursor(cursor);
-        }
+        brushDown = !brushDown;
     }
 
     @Override

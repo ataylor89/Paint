@@ -1,5 +1,6 @@
 package paint;
 
+import java.awt.Cursor;
 import paint.algorithm.Algorithm;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,6 +32,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         algorithm = AlgorithmFactory.getAlgorithm("Sparse");
         addMouseListener(this);
         addMouseMotionListener(this);
+        Cursor cursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
+        setCursor(cursor);
     }
 
     @Override
