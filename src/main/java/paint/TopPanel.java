@@ -40,7 +40,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
-        Color brushColor= settings.getPaintColor();
+        Color brushColor = settings.getPaintColor();
         sizeLabel = new JLabel("Diameter:");
         add(sizeLabel);
         SpinnerNumberModel model = new SpinnerNumberModel(brushSize, 1, 100, 1);
