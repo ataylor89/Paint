@@ -32,14 +32,12 @@ public class Pen implements Tool {
     @Override
     public void move(MouseEvent event) {
         if (on) {
-            if (lastEvent != null) {
-                Canvas canvas = (Canvas) event.getSource();
-                Graphics graphics = canvas.getGraphics();
-                Settings settings = Settings.getInstance();
-                Color paintColor = settings.getPaintColor();
-                graphics.setColor(paintColor);
-                graphics.drawLine(lastEvent.getX(), lastEvent.getY(), event.getX(), event.getY());
-            }
+            Canvas canvas = (Canvas) event.getSource();
+            Graphics graphics = canvas.getGraphics();
+            Settings settings = Settings.getInstance();
+            Color paintColor = settings.getPaintColor();
+            graphics.setColor(paintColor);
+            graphics.drawLine(lastEvent.getX(), lastEvent.getY(), event.getX(), event.getY());
             lastEvent = event;
         }
     }
