@@ -1,5 +1,6 @@
 package paint;
 
+import paint.tools.Tool;
 import paint.tools.ToolFactory;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -14,7 +15,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import paint.tools.Tool;
 
 /**
  *
