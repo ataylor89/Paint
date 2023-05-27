@@ -12,10 +12,10 @@ import java.awt.event.MouseEvent;
  */
 public class Eraser implements Tool {
 
-    private boolean brushDown;
+    private boolean on;
     
     public Eraser() {
-        brushDown = false;
+        on = false;
     }
     
     public void dot(MouseEvent event) {
@@ -33,15 +33,15 @@ public class Eraser implements Tool {
     
     @Override
     public void press(MouseEvent event) {
-        brushDown = !brushDown;
-        if (brushDown) {
+        on = !on;
+        if (on) {
             dot(event);
         }
     }
     
     @Override
     public void move(MouseEvent event) {
-        if (brushDown) {
+        if (on) {
             dot(event);
         }
     }  

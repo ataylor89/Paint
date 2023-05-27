@@ -12,17 +12,17 @@ import java.awt.event.MouseEvent;
  */
 public class Pen implements Tool {
 
-    private boolean penDown;
+    private boolean on;
     private MouseEvent lastEvent;
     
     public Pen() {
-        penDown = false;
+        on = false;
     }
     
     @Override
     public void press(MouseEvent event) {
-        penDown = !penDown;
-        if (penDown) {
+        on = !on;
+        if (on) {
             lastEvent = event;
         } else {
             lastEvent = null;
@@ -31,7 +31,7 @@ public class Pen implements Tool {
 
     @Override
     public void move(MouseEvent event) {
-        if (penDown) {
+        if (on) {
             if (lastEvent != null) {
                 Canvas canvas = (Canvas) event.getSource();
                 Graphics graphics = canvas.getGraphics();
