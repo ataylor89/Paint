@@ -32,7 +32,7 @@ public class Brush implements Tool {
     }
     
     @Override
-    public void mousePressed(MouseEvent event) {
+    public void press(MouseEvent event) {
         brushDown = !brushDown;
         if (brushDown) {
             dot(event);
@@ -40,7 +40,7 @@ public class Brush implements Tool {
     }
     
     @Override
-    public void mouseMoved(MouseEvent event) {
+    public void move(MouseEvent event) {
         if (brushDown) {
             dot(event);
         }

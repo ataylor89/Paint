@@ -22,7 +22,7 @@ public class Pen implements Tool {
     }
     
     @Override
-    public void mousePressed(MouseEvent event) {
+    public void press(MouseEvent event) {
         penDown = !penDown;
         if (penDown) {
             lastX = event.getX();
@@ -34,7 +34,7 @@ public class Pen implements Tool {
     }
 
     @Override
-    public void mouseMoved(MouseEvent event) {
+    public void move(MouseEvent event) {
         if (penDown) {
             if (lastX > 0 && lastY > 0) {
                 Canvas canvas = (Canvas) event.getSource();

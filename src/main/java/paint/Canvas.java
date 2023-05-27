@@ -41,7 +41,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent event) {
-        tool.mousePressed(event);
+        tool.press(event);
     }
 
     @Override
@@ -58,6 +58,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        tool.mouseMoved(event);
+        tool.move(event);
     }
 }
