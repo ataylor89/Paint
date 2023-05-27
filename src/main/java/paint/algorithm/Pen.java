@@ -34,9 +34,6 @@ public class Pen implements Algorithm {
     }
 
     @Override
-    public void mouseReleased(MouseEvent event) {}
-
-    @Override
     public void mouseMoved(MouseEvent event) {
         if (penDown) {
             if (lastX > 0 && lastY > 0) {
@@ -51,7 +48,4 @@ public class Pen implements Algorithm {
             lastY = event.getY();
         }
     }
-
-    @Override
-    public void mouseDragged(MouseEvent event) {}  
 }
