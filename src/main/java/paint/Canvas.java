@@ -1,7 +1,7 @@
 package paint;
 
-import paint.algorithm.Algorithm;
-import paint.algorithm.AlgorithmFactory;
+import paint.tools.Tool;
+import paint.tools.ToolFactory;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,22 +14,22 @@ import javax.swing.JPanel;
  */
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
     
-    private Algorithm algorithm;
+    private Tool tool;
     
     public Canvas() {
         init();
     }
     
-    public void setAlgorithm(Algorithm algorithm) {
-        this.algorithm = algorithm;
+    public void setTool(Tool tool) {
+        this.tool = tool;
     }
     
-    public Algorithm getAlgorithm() {
-        return algorithm;
+    public Tool getTool() {
+        return tool;
     }
     
     private void init() {
-        algorithm = AlgorithmFactory.getAlgorithm("Brush");
+        tool = ToolFactory.getTool("Brush");
         Cursor cursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
         setCursor(cursor);
         addMouseListener(this);
@@ -41,7 +41,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent event) {
-        algorithm.mousePressed(event);
+        tool.mousePressed(event);
     }
 
     @Override
@@ -58,6 +58,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        algorithm.mouseMoved(event);
+        tool.mouseMoved(event);
     }
 }

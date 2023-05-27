@@ -1,7 +1,6 @@
 package paint;
 
-import paint.algorithm.Algorithm;
-import paint.algorithm.AlgorithmFactory;
+import paint.tools.ToolFactory;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +14,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import paint.tools.Tool;
 
 /**
  *
@@ -79,9 +79,9 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         }
         else if (e.getSource() == algorithmCombo) {
             String value = (String) algorithmCombo.getSelectedItem();
-            Algorithm algorithm = AlgorithmFactory.getAlgorithm(value);
+            Tool algorithm = ToolFactory.getTool(value);
             Canvas canvas = paint.getCanvas();
-            canvas.setAlgorithm(algorithm);
+            canvas.setTool(algorithm);
         }
     }
 }

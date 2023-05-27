@@ -1,4 +1,4 @@
-package paint.algorithm;
+package paint.tools;
 
 import paint.Canvas;
 import paint.Settings;
@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
  *
  * @author andrewtaylor
  */
-public class Brush implements Algorithm {
+public class Brush implements Tool {
     
     private boolean brushDown;
     

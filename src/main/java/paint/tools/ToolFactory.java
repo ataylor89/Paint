@@ -1,16 +1,16 @@
-package paint.algorithm;
+package paint.tools;
 
 /**
  *
  * @author andrewtaylor
  */
-public class AlgorithmFactory {
+public class ToolFactory {
     
     public static final Brush BRUSH = new Brush();
     public static final Pen PEN = new Pen();
     public static final Eraser ERASER = new Eraser();
     
-    public static Algorithm getAlgorithm(String name) {
+    public static Tool getTool(String name) {
         if (name.equals("Brush")) {
             return BRUSH;
         }
