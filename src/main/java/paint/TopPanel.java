@@ -23,7 +23,7 @@ import paint.tools.Tool;
 public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     
     private final Paint paint;
-    private Settings settings;
+    private final Settings settings;
     private JLabel sizeLabel, colorLabel, toolLabel;
     private JSpinner sizeSpinner;
     private ColorSample colorButton;
@@ -32,11 +32,11 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     public TopPanel(Paint paint) {
         super();
         this.paint = paint;
+        this.settings = Settings.getInstance();
         init();
     }
     
     private void init() {
-        settings = Settings.getInstance();        
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
