@@ -1,10 +1,12 @@
 package paint.tools;
 
-import paint.Canvas;
-import paint.Settings;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import paint.Canvas;
+import paint.Paint;
+import paint.Settings;
 
 /**
  *
@@ -12,13 +14,15 @@ import java.awt.event.MouseEvent;
  */
 public class Pen implements Tool {
 
+    private Paint paint;
     private boolean on;
     private MouseEvent lastEvent;
     
-    public Pen() {
+    public Pen(Paint paint) {
+        this.paint = paint;
         on = false;
     }
-    
+      
     @Override
     public void press(MouseEvent event) {
         on = !on;
@@ -32,12 +36,20 @@ public class Pen implements Tool {
     @Override
     public void move(MouseEvent event) {
         if (on) {
-            Canvas canvas = (Canvas) event.getSource();
-            Graphics graphics = canvas.getGraphics();
-            Settings settings = Settings.getInstance();
+            Settings settings = paint.getSettings();
             Color paintColor = settings.getPaintColor();
-            graphics.setColor(paintColor);
-            graphics.drawLine(lastEvent.getX(), lastEvent.getY(), event.getX(), event.getY());
+            int x1 = lastEvent.getX();
+            int y1 = lastEvent.getY();
+            int x2 = event.getX();
+            int y2 = event.getY();
+            Canvas canvas = paint.getCanvas();
+            BufferedImage image = canvas.getImage();
+            Graphics cg = canvas.getGraphics();
+            Graphics ig = image.getGraphics();
+            cg.setColor(paintColor);
+            cg.drawLine(x1, y1, x2, y2);
+            ig.setColor(paintColor);
+            ig.drawLine(x1, y1, x2, y2);
             lastEvent = event;
         }
     }

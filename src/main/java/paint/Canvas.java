@@ -1,23 +1,47 @@
 package paint;
 
-import paint.tools.Tool;
-import paint.tools.ToolFactory;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
+import paint.tools.Tool;
+import paint.tools.Toolbox;
 
 /**
  *
  * @author andrewtaylor
  */
-public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
+public class Canvas extends JPanel {
     
+    private BufferedImage image;
     private Tool tool;
+    private Toolbox toolbox;
+    private int width, height;
     
-    public Canvas() {
-        init();
+    public Canvas(Paint paint) {
+        toolbox = new Toolbox(paint);
+        tool = toolbox.get("Brush");
+        width = 1200;
+        height = 725;
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        image.createGraphics();
+        super.setBackground(Color.WHITE);
+        super.setPreferredSize(new Dimension(width, height));
+        super.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+        super.addMouseListener(new MousePressListener());
+        super.addMouseMotionListener(new MouseMotionListener());
+    }
+        
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+    
+    public BufferedImage getImage() {
+        return image;
     }
     
     public void setTool(Tool tool) {
@@ -28,36 +52,21 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         return tool;
     }
     
-    private void init() {
-        tool = ToolFactory.getTool("Brush");
-        Cursor cursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
-        setCursor(cursor);
-        addMouseListener(this);
-        addMouseMotionListener(this);
+    public Toolbox getToolbox() {
+        return toolbox;
     }
-
-    @Override
-    public void mouseClicked(MouseEvent event) {}
-
-    @Override
-    public void mousePressed(MouseEvent event) {
-        tool.press(event);
+    
+    private class MousePressListener extends MouseAdapter {
+        @Override
+        public void mousePressed(MouseEvent event) {
+            tool.press(event);
+        }
     }
-
-    @Override
-    public void mouseReleased(MouseEvent event) {}
-
-    @Override
-    public void mouseEntered(MouseEvent event) {}
-
-    @Override
-    public void mouseExited(MouseEvent event) {}
-
-    @Override
-    public void mouseDragged(MouseEvent event) {}
-
-    @Override
-    public void mouseMoved(MouseEvent event) {
-        tool.move(event);
+    
+    private class MouseMotionListener extends MouseMotionAdapter {
+        @Override
+        public void mouseMoved(MouseEvent event) {
+            tool.move(event);
+        }
     }
 }

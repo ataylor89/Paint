@@ -1,7 +1,5 @@
 package paint;
 
-import paint.tools.Tool;
-import paint.tools.ToolFactory;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +13,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import paint.tools.Tool;
+import paint.tools.Toolbox;
 
 /**
  *
@@ -22,8 +22,7 @@ import javax.swing.event.ChangeListener;
  */
 public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     
-    private final Paint paint;
-    private final Settings settings;
+    private Paint paint;
     private JLabel sizeLabel, colorLabel, toolLabel;
     private JSpinner sizeSpinner;
     private ColorSample colorButton;
@@ -32,11 +31,11 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     public TopPanel(Paint paint) {
         super();
         this.paint = paint;
-        this.settings = Settings.getInstance();
         init();
     }
     
     private void init() {
+        Settings settings = paint.getSettings();
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
@@ -62,6 +61,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
+        Settings settings = paint.getSettings();
         JSpinner spinner = (JSpinner) e.getSource();
         Integer value = (Integer) spinner.getValue();
         settings.setBrushSize(value); 
@@ -70,6 +70,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == colorButton) {
+            Settings settings = paint.getSettings();
             Color initial = settings.getPaintColor();
             Color choice = JColorChooser.showDialog(this, "Chooose a color", initial);
             if (choice != null) {
@@ -78,9 +79,10 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
             }
         }
         else if (e.getSource() == toolCombo) {
-            String value = (String) toolCombo.getSelectedItem();
-            Tool tool = ToolFactory.getTool(value);
             Canvas canvas = paint.getCanvas();
+            String value = (String) toolCombo.getSelectedItem();
+            Toolbox toolbox = canvas.getToolbox();
+            Tool tool = toolbox.get(value);
             canvas.setTool(tool);
         }
     }

@@ -1,10 +1,14 @@
 package paint.tools;
 
-import paint.Canvas;
-import paint.Settings;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import paint.Canvas;
+import paint.Paint;
+import paint.Settings;
 
 /**
  *
@@ -12,37 +16,45 @@ import java.awt.event.MouseEvent;
  */
 public class Eraser implements Tool {
 
+    private Paint paint;
     private boolean on;
     
-    public Eraser() {
+    public Eraser(Paint paint) {
+        this.paint = paint;
         on = false;
     }
     
-    public void dot(MouseEvent event) {
-        Canvas canvas = (Canvas) event.getSource();
+    public void apply(MouseEvent event) {
+        Canvas canvas = paint.getCanvas();
+        BufferedImage image = canvas.getImage();
+        Settings settings = paint.getSettings();
         int x = event.getX();
         int y = event.getY();
-        Graphics graphics = canvas.getGraphics();
-        Settings settings = Settings.getInstance();
-        Color color = canvas.getBackground();
         int diameter = settings.getBrushSize();
-        graphics.setColor(color);
-        graphics.drawOval(x, y, diameter, diameter);
-        graphics.fillOval(x, y, diameter, diameter);
+        Graphics cg = canvas.getGraphics();
+        cg.setColor(canvas.getBackground());
+        cg.drawOval(x, y, diameter, diameter);
+        cg.fillOval(x, y, diameter, diameter);
+        Graphics2D ig = (Graphics2D) image.getGraphics();
+        ig.setComposite(AlphaComposite.Clear);
+        ig.setColor(new Color(0,0,0,0));
+        ig.drawOval(x, y, diameter, diameter);
+        ig.fillOval(x, y, diameter, diameter);
+        ig.setComposite(AlphaComposite.SrcOver);
     }
     
     @Override
     public void press(MouseEvent event) {
         on = !on;
         if (on) {
-            dot(event);
+            apply(event);
         }
     }
     
     @Override
     public void move(MouseEvent event) {
         if (on) {
-            dot(event);
+            apply(event);
         }
-    }  
+    }
 }
