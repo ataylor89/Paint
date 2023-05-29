@@ -12,31 +12,50 @@ import paint.Settings;
  *
  * @author andrewtaylor
  */
-public class Pen implements Tool {
+public class Pen extends Tool {
 
     private Paint paint;
-    private boolean on;
+    private Settings settings;
     private MouseEvent lastEvent;
     
     public Pen(Paint paint) {
         this.paint = paint;
-        on = false;
+        this.settings = paint.getSettings();
     }
       
     @Override
     public void press(MouseEvent event) {
-        on = !on;
-        if (on) {
-            lastEvent = event;
-        } else {
-            lastEvent = null;
+        if (settings.getMode() == Settings.GLIDE) {
+            gliding = !gliding;
         }
+        lastEvent = event;
     }
 
     @Override
     public void move(MouseEvent event) {
-        if (on) {
-            Settings settings = paint.getSettings();
+        if (settings.getMode() == Settings.GLIDE) {
+            if (gliding) {
+                Color paintColor = settings.getPaintColor();
+                int x1 = lastEvent.getX();
+                int y1 = lastEvent.getY();
+                int x2 = event.getX();
+                int y2 = event.getY();
+                Canvas canvas = paint.getCanvas();
+                BufferedImage image = canvas.getImage();
+                Graphics cg = canvas.getGraphics();
+                Graphics ig = image.getGraphics();
+                cg.setColor(paintColor);
+                cg.drawLine(x1, y1, x2, y2);
+                ig.setColor(paintColor);
+                ig.drawLine(x1, y1, x2, y2);
+                lastEvent = event;
+            }
+        }
+    }
+    
+    @Override
+    public void drag(MouseEvent event) {
+        if (settings.getMode() == Settings.DRAG) {
             Color paintColor = settings.getPaintColor();
             int x1 = lastEvent.getX();
             int y1 = lastEvent.getY();

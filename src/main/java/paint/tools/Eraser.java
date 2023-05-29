@@ -14,20 +14,19 @@ import paint.Settings;
  *
  * @author andrewtaylor
  */
-public class Eraser implements Tool {
+public class Eraser extends Tool {
 
     private Paint paint;
-    private boolean on;
+    private Settings settings;
     
     public Eraser(Paint paint) {
         this.paint = paint;
-        on = false;
+        this.settings = paint.getSettings();
     }
     
     public void apply(MouseEvent event) {
         Canvas canvas = paint.getCanvas();
         BufferedImage image = canvas.getImage();
-        Settings settings = paint.getSettings();
         int x = event.getX();
         int y = event.getY();
         int diameter = settings.getBrushSize();
@@ -45,15 +44,29 @@ public class Eraser implements Tool {
     
     @Override
     public void press(MouseEvent event) {
-        on = !on;
-        if (on) {
+        if (settings.getMode() == Settings.GLIDE) {
+            gliding = !gliding;
+            if (gliding) {
+                apply(event);
+            }
+        }
+        else {
             apply(event);
         }
     }
     
     @Override
     public void move(MouseEvent event) {
-        if (on) {
+        if (settings.getMode() == Settings.GLIDE) {
+            if (gliding) {
+                apply(event);
+            }
+        }
+    }
+    
+    @Override
+    public void drag(MouseEvent event) {
+        if (settings.getMode() == Settings.DRAG) {
             apply(event);
         }
     }

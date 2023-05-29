@@ -3,6 +3,7 @@ package paint;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -68,5 +69,15 @@ public class Canvas extends JPanel {
         public void mouseMoved(MouseEvent event) {
             tool.move(event);
         }
+        @Override
+        public void mouseDragged(MouseEvent event) {
+            tool.drag(event);
+        }
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, null);
     }
 }

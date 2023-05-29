@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -20,22 +23,24 @@ import paint.tools.Toolbox;
  *
  * @author andrewtaylor
  */
-public class TopPanel extends JPanel implements ActionListener, ChangeListener {
+public class TopPanel extends JPanel implements ActionListener, ChangeListener, ItemListener {
     
     private Paint paint;
-    private JLabel sizeLabel, colorLabel, toolLabel;
+    private Settings settings;
+    private JLabel sizeLabel, colorLabel, toolLabel, glideLabel;
     private JSpinner sizeSpinner;
     private ColorSample colorButton;
     private JComboBox toolCombo;
+    private JCheckBox glideCheckBox;
     
     public TopPanel(Paint paint) {
         super();
         this.paint = paint;
+        this.settings = paint.getSettings();
         init();
     }
     
     private void init() {
-        Settings settings = paint.getSettings();
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
@@ -57,11 +62,15 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
         toolCombo = new JComboBox(tools);
         toolCombo.addActionListener(this);
         add(toolCombo);
+        glideLabel = new JLabel("Glide");
+        add(glideLabel);
+        glideCheckBox = new JCheckBox();
+        glideCheckBox.addItemListener(this);
+        add(glideCheckBox);
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        Settings settings = paint.getSettings();
         JSpinner spinner = (JSpinner) e.getSource();
         Integer value = (Integer) spinner.getValue();
         settings.setBrushSize(value); 
@@ -70,7 +79,6 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == colorButton) {
-            Settings settings = paint.getSettings();
             Color initial = settings.getPaintColor();
             Color choice = JColorChooser.showDialog(this, "Chooose a color", initial);
             if (choice != null) {
@@ -85,5 +93,10 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener {
             Tool tool = toolbox.get(value);
             canvas.setTool(tool);
         }
+    }
+    
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        settings.setMode(glideCheckBox.isSelected() ? Settings.GLIDE : Settings.DRAG);
     }
 }

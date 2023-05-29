@@ -6,7 +6,11 @@ import java.awt.event.MouseEvent;
  *
  * @author andrewtaylor
  */
-public interface Tool {
-    public void press(MouseEvent event);
-    public void move(MouseEvent event);
+public abstract class Tool {
+    
+    protected boolean gliding;
+        
+    public abstract void press(MouseEvent event);
+    public abstract void move(MouseEvent event);
+    public abstract void drag(MouseEvent event);
 }
