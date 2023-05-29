@@ -65,6 +65,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener, 
         glideLabel = new JLabel("Glide");
         add(glideLabel);
         glideCheckBox = new JCheckBox();
+        glideCheckBox.setSelected(true);
         glideCheckBox.addItemListener(this);
         add(glideCheckBox);
     }

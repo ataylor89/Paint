@@ -1,7 +1,6 @@
 package paint.tools;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
@@ -27,6 +26,7 @@ public class Brush extends Tool {
         this.settings = paint.getSettings();
         Map<RenderingHints.Key, Object> hints = new HashMap<>();
         hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         hints.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
         renderingHints = new RenderingHints(hints);
     }
@@ -38,7 +38,8 @@ public class Brush extends Tool {
         int y = event.getY();
         Color color = settings.getPaintColor();
         int diameter = settings.getBrushSize();
-        Graphics cg = canvas.getGraphics();
+        Graphics2D cg = (Graphics2D) canvas.getGraphics();
+        cg.setRenderingHints(renderingHints);
         cg.setColor(color);
         cg.drawOval(x, y, diameter, diameter);
         cg.fillOval(x, y, diameter, diameter);

@@ -18,7 +18,7 @@ public class Settings {
     public Settings() {
         brushSize = 20;
         paintColor = new Color(0,153,255);
-        mode = DRAG;
+        mode = GLIDE;
     }
     
     public void setBrushSize(int brushSize) {
