@@ -1,6 +1,6 @@
 # Paint
 
-## Building, installing, and running
+## Building, installing, and running the application
 
 The application can be packaged as an executable JAR file with the command:
 
