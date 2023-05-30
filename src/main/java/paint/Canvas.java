@@ -26,8 +26,8 @@ public class Canvas extends JPanel {
         this.paint = paint;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         image.createGraphics();
-        super.setBackground(Color.WHITE);
         super.setPreferredSize(new Dimension(width, height));
+        super.setBackground(Color.WHITE);
         super.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         CanvasListener listener = new CanvasListener();
         super.addMouseListener(listener);
