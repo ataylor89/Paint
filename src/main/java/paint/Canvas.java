@@ -37,6 +37,12 @@ public class Canvas extends JPanel {
         super.addMouseMotionListener(new MouseMotionListener());
     }
         
+    public void clear() {
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        image.createGraphics();
+        repaint();
+    }
+    
     public void setImage(BufferedImage image) {
         this.image = image;
     }

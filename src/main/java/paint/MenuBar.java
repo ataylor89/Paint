@@ -37,14 +37,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
         open.addActionListener(this);
         fileMenu.add(open);
         save = new JMenuItem("Save");
+        save.setEnabled(false);
         save.addActionListener(this);
         fileMenu.add(save);
         saveAs = new JMenuItem("Save as");
         saveAs.addActionListener(this);
         fileMenu.add(saveAs);
-        export = new JMenuItem("Export");
-        export.addActionListener(this);
-        fileMenu.add(export);
         exit = new JMenuItem("Exit");
         exit.addActionListener(this);
         fileMenu.add(exit);
@@ -52,14 +50,46 @@ public class MenuBar extends JMenuBar implements ActionListener {
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {    
-        if (e.getSource() == export) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == create) {
+            paint.setFile(null);
+            paint.getCanvas().clear();
+            save.setEnabled(false);
+        }
+        else if (e.getSource() == open) {
+            JFileChooser fileChooser = paint.getFileChooser();
+            if (fileChooser.showOpenDialog(paint) == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                try {
+                    BufferedImage image = ImageIO.read(file);
+                    Canvas canvas = paint.getCanvas();
+                    canvas.setImage(image);
+                    canvas.repaint();
+                    paint.setFile(file);
+                    save.setEnabled(true);
+                } catch (IOException ex) {
+                    System.err.println(ex);
+                }
+            }
+        }
+        else if (e.getSource() == save) {
+            File file = paint.getFile();
+            BufferedImage image = paint.getCanvas().getImage();
+            try {
+                ImageIO.write(image, "png", file);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+        }
+        else if (e.getSource() == saveAs) {
             JFileChooser fileChooser = paint.getFileChooser();
             if (fileChooser.showSaveDialog(paint) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 BufferedImage image = paint.getCanvas().getImage();
                 try {
                     ImageIO.write(image, "png", file);
+                    paint.setFile(file);
+                    save.setEnabled(true);
                 } catch (IOException ex) {
                     System.err.println(ex);
                 }

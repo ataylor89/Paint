@@ -1,6 +1,7 @@
 package paint;
 
 import java.awt.BorderLayout;
+import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ public class Paint extends JFrame {
     private Settings settings;
     private MenuBar menuBar;
     private JFileChooser fileChooser;
+    private File file;
     private JPanel contentPane;
     private TopPanel toolbar;
     private Canvas canvas;
@@ -45,6 +47,14 @@ public class Paint extends JFrame {
     
     public JFileChooser getFileChooser() {
         return fileChooser;
+    }
+    
+    public void setFile(File file) {
+        this.file = file;
+    }
+    
+    public File getFile() {
+        return file;
     }
     
     public Canvas getCanvas() {
