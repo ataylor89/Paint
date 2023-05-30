@@ -24,7 +24,7 @@ public class Paint extends JFrame {
     private Canvas canvas;
     
     public Paint() {
-        super("Paint - 1200 x 725");
+        super("Paint - 1200x725");
     }
     
     public void createAndShowGui() {
@@ -49,7 +49,7 @@ public class Paint extends JFrame {
     
     public void updateTitle() {
         BufferedImage image = canvas.getImage();
-        setTitle("Paint - " + image.getWidth() + " x " + image.getHeight());
+        setTitle("Paint - " + image.getWidth() + "x" + image.getHeight());
     }
     
     public Settings getSettings() {
