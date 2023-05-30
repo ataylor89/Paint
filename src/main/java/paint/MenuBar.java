@@ -111,14 +111,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
             System.exit(0);
         }
         else if (e.getSource() == fit) {
-            paint.getCanvas().fitToImage();
+            paint.getCanvas().fit();
         }
         else if (e.getSource() == resize) {
             String message = "Are you sure you want to resize the underlying image?";
             String title = "Resize image";
             int optionType = JOptionPane.YES_NO_OPTION;
             if (JOptionPane.showConfirmDialog(paint, message, title, optionType) == JOptionPane.YES_OPTION) {
-                paint.getCanvas().resizeImage();
+                paint.getCanvas().resize();
             }
         }
     }

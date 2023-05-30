@@ -48,7 +48,7 @@ public class Canvas extends JPanel {
         repaint();
     }
     
-    public void resizeImage() {
+    public void resize() {
         int w = getWidth();
         int h = getHeight();
         BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -58,26 +58,11 @@ public class Canvas extends JPanel {
         paint.updateTitle();
     }
     
-    public void fitToImage() {
+    public void fit() {
         int w = image.getWidth();
         int h = image.getHeight();
         setPreferredSize(new Dimension(w, h));
         paint.pack();
-    }
-    
-    private class MouseEventHandler extends MouseInputAdapter {
-        @Override
-        public void mousePressed(MouseEvent event) {
-            tool.press(event);
-        }
-        @Override
-        public void mouseMoved(MouseEvent event) {
-            tool.move(event);
-        }
-        @Override
-        public void mouseDragged(MouseEvent event) {
-            tool.drag(event);
-        }
     }
     
     public void setImage(BufferedImage image) {
@@ -102,5 +87,20 @@ public class Canvas extends JPanel {
     
     public Toolbox getToolbox() {
         return toolbox;
+    }
+    
+    private class MouseEventHandler extends MouseInputAdapter {
+        @Override
+        public void mousePressed(MouseEvent event) {
+            tool.press(event);
+        }
+        @Override
+        public void mouseMoved(MouseEvent event) {
+            tool.move(event);
+        }
+        @Override
+        public void mouseDragged(MouseEvent event) {
+            tool.drag(event);
+        }
     }
 }
