@@ -22,6 +22,23 @@ public class Pen extends Tool {
         this.paint = paint;
         this.settings = paint.getSettings();
     }
+    
+    public void apply(MouseEvent event) {
+        Color paintColor = settings.getPaintColor();
+        int x1 = lastEvent.getX();
+        int y1 = lastEvent.getY();
+        int x2 = event.getX();
+        int y2 = event.getY();
+        Canvas canvas = paint.getCanvas();
+        BufferedImage image = canvas.getImage();
+        Graphics cg = canvas.getGraphics();
+        cg.setColor(paintColor);
+        cg.drawLine(x1, y1, x2, y2);
+        Graphics ig = image.getGraphics();
+        ig.setColor(paintColor);
+        ig.drawLine(x1, y1, x2, y2);
+        lastEvent = event;
+    }
       
     @Override
     public void press(MouseEvent event) {
@@ -35,20 +52,7 @@ public class Pen extends Tool {
     public void move(MouseEvent event) {
         if (settings.getMode() == Settings.GLIDE) {
             if (gliding) {
-                Color paintColor = settings.getPaintColor();
-                int x1 = lastEvent.getX();
-                int y1 = lastEvent.getY();
-                int x2 = event.getX();
-                int y2 = event.getY();
-                Canvas canvas = paint.getCanvas();
-                BufferedImage image = canvas.getImage();
-                Graphics cg = canvas.getGraphics();
-                Graphics ig = image.getGraphics();
-                cg.setColor(paintColor);
-                cg.drawLine(x1, y1, x2, y2);
-                ig.setColor(paintColor);
-                ig.drawLine(x1, y1, x2, y2);
-                lastEvent = event;
+                apply(event);
             }
         }
     }
@@ -56,20 +60,7 @@ public class Pen extends Tool {
     @Override
     public void drag(MouseEvent event) {
         if (settings.getMode() == Settings.DRAG) {
-            Color paintColor = settings.getPaintColor();
-            int x1 = lastEvent.getX();
-            int y1 = lastEvent.getY();
-            int x2 = event.getX();
-            int y2 = event.getY();
-            Canvas canvas = paint.getCanvas();
-            BufferedImage image = canvas.getImage();
-            Graphics cg = canvas.getGraphics();
-            Graphics ig = image.getGraphics();
-            cg.setColor(paintColor);
-            cg.drawLine(x1, y1, x2, y2);
-            ig.setColor(paintColor);
-            ig.drawLine(x1, y1, x2, y2);
-            lastEvent = event;
+            apply(event);
         }
     }
 }
