@@ -41,17 +41,13 @@ public class Canvas extends JPanel {
     }
         
     public void clear() {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
         image.createGraphics();
         repaint();
     }
     
     public void resize() {
-        int w = getWidth();
-        int h = getHeight();
-        BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage newImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics g = newImage.createGraphics();
         g.drawImage(image, 0, 0, null);
         image = newImage;
@@ -59,9 +55,7 @@ public class Canvas extends JPanel {
     }
     
     public void fit() {
-        int w = image.getWidth();
-        int h = image.getHeight();
-        setPreferredSize(new Dimension(w, h));
+        setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         paint.pack();
     }
     
