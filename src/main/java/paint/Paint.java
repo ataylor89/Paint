@@ -49,9 +49,7 @@ public class Paint extends JFrame {
     
     public void updateTitle() {
         BufferedImage image = canvas.getImage();
-        int w = image.getWidth();
-        int h = image.getHeight();
-        setTitle("Paint - " + w + " x " + h);
+        setTitle("Paint - " + image.getWidth() + " x " + image.getHeight());
     }
     
     public Settings getSettings() {
