@@ -47,6 +47,13 @@ public class Paint extends JFrame {
         setVisible(true);
     }
     
+    public void updateTitle() {
+        BufferedImage image = canvas.getImage();
+        int w = image.getWidth();
+        int h = image.getHeight();
+        setTitle("Paint - " + w + " x " + h);
+    }
+    
     public Settings getSettings() {
         return settings;
     }
@@ -65,13 +72,6 @@ public class Paint extends JFrame {
     
     public Canvas getCanvas() {
         return canvas;
-    }
-    
-    public void updateTitle() {
-        BufferedImage image = canvas.getImage();
-        int w = image.getWidth();
-        int h = image.getHeight();
-        setTitle("Paint - " + w + " x " + h);
     }
         
     public static void main(String[] args) {
