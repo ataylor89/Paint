@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Paint extends JFrame {
         menuBar = new MenuBar(this);
         setJMenuBar(menuBar);
         fileChooser = new JFileChooser(System.getProperty("user.dir"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         toolbar = new TopPanel(this);
