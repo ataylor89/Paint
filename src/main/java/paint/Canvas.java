@@ -51,7 +51,6 @@ public class Canvas extends JPanel {
         Graphics g = newImage.createGraphics();
         g.drawImage(image, 0, 0, null);
         image = newImage;
-        paint.updateTitle();
     }
     
     public void fit() {

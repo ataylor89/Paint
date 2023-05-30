@@ -120,6 +120,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             int optionType = JOptionPane.YES_NO_OPTION;
             if (JOptionPane.showConfirmDialog(paint, message, title, optionType) == JOptionPane.YES_OPTION) {
                 paint.getCanvas().resize();
+                paint.updateTitle();
             }
         }
     }
