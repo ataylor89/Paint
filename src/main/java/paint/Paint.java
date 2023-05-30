@@ -1,11 +1,13 @@
 package paint;
 
 import java.awt.BorderLayout;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import paint.tools.Toolbox;
 
 /**
  *
@@ -22,7 +24,7 @@ public class Paint extends JFrame {
     private Canvas canvas;
     
     public Paint() {
-        super("Paint");
+        super("Paint - 1200 x 725");
     }
     
     public void createAndShowGui() {
@@ -35,10 +37,12 @@ public class Paint extends JFrame {
         contentPane.setLayout(new BorderLayout());
         toolbar = new TopPanel(this);
         contentPane.add(toolbar, BorderLayout.NORTH);
-        canvas = new Canvas(this);
+        canvas = new Canvas(this, 1200, 725);
+        Toolbox toolbox = new Toolbox(this);
+        canvas.setToolbox(toolbox);
+        canvas.setTool(toolbox.get("Brush"));
         contentPane.add(canvas, BorderLayout.CENTER);
         setContentPane(contentPane);
-        setResizable(false);
         pack();
         setVisible(true);
     }
@@ -61,6 +65,13 @@ public class Paint extends JFrame {
     
     public Canvas getCanvas() {
         return canvas;
+    }
+    
+    public void updateTitle() {
+        BufferedImage image = canvas.getImage();
+        int w = image.getWidth();
+        int h = image.getHeight();
+        setTitle("Paint - " + w + " x " + h);
     }
         
     public static void main(String[] args) {

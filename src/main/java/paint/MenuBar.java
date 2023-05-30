@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +21,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     private Paint paint;
     private JMenu fileMenu;
-    private JMenuItem create, open, save, saveAs, export, exit;
+    private JMenuItem create, open, save, saveAs, exit;
+    private JMenu toolsMenu;
+    private JMenuItem fit, resize;
     
     public MenuBar(Paint paint) {
         super();
@@ -47,6 +50,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
         exit.addActionListener(this);
         fileMenu.add(exit);
         add(fileMenu);
+        toolsMenu = new JMenu("Tools");
+        fit = new JMenuItem("Fit to image");
+        fit.addActionListener(this);
+        toolsMenu.add(fit);
+        resize = new JMenuItem("Resize image");
+        resize.addActionListener(this);
+        toolsMenu.add(resize);
+        add(toolsMenu);
     }
     
     @Override
@@ -98,6 +109,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
         else if (e.getSource() == exit) {
             dispatchEvent(new WindowEvent(paint, WindowEvent.WINDOW_CLOSING));
             System.exit(0);
+        }
+        else if (e.getSource() == fit) {
+            paint.getCanvas().fitToImage();
+        }
+        else if (e.getSource() == resize) {
+            String message = "Are you sure you want to resize the underlying image?";
+            String title = "Resize image";
+            int optionType = JOptionPane.YES_NO_OPTION;
+            if (JOptionPane.showConfirmDialog(paint, message, title, optionType) == JOptionPane.YES_OPTION) {
+                Canvas canvas = paint.getCanvas();
+                canvas.resizeImage();
+            }
         }
     }    
 }
