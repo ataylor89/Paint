@@ -77,6 +77,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                     canvas.setImage(image);
                     canvas.repaint();
                     paint.setFile(file);
+                    paint.updateTitle();
                     save.setEnabled(true);
                 } catch (IOException ex) {
                     System.err.println(ex);
