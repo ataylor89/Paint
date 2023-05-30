@@ -22,7 +22,7 @@ Now we can run the "build.sh" file with the command:
 
     ./build.sh
 
-If the script runs successfully, it should create a DMG installer for the application in the same directory.
+If the script runs successfully, it should create a DMG installer for the application.
 
 The DMG file can be run by double clicking on its icon.
 
