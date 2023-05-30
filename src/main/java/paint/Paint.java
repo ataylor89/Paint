@@ -36,8 +36,8 @@ public class Paint extends JFrame {
         canvas = new Canvas(this);
         contentPane.add(canvas, BorderLayout.CENTER);
         setContentPane(contentPane);
-        pack();
         setResizable(false);
+        pack();
         setVisible(true);
     }
     
