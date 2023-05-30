@@ -118,9 +118,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
             String title = "Resize image";
             int optionType = JOptionPane.YES_NO_OPTION;
             if (JOptionPane.showConfirmDialog(paint, message, title, optionType) == JOptionPane.YES_OPTION) {
-                Canvas canvas = paint.getCanvas();
-                canvas.resizeImage();
+                paint.getCanvas().resizeImage();
             }
         }
-    }    
+    }
 }
