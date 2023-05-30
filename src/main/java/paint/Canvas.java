@@ -29,9 +29,9 @@ public class Canvas extends JPanel {
         super.setBackground(Color.WHITE);
         super.setPreferredSize(new Dimension(width, height));
         super.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-        MouseEventHandler handler = new MouseEventHandler();
-        super.addMouseListener(handler);
-        super.addMouseMotionListener(handler);
+        CanvasListener listener = new CanvasListener();
+        super.addMouseListener(listener);
+        super.addMouseMotionListener(listener);
     }
     
     @Override
@@ -82,7 +82,7 @@ public class Canvas extends JPanel {
         return toolbox;
     }
     
-    private class MouseEventHandler extends MouseInputAdapter {
+    private class CanvasListener extends MouseInputAdapter {
         @Override
         public void mousePressed(MouseEvent event) {
             tool.press(event);
