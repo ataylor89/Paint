@@ -1,6 +1,5 @@
 package paint;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -27,7 +26,6 @@ public class Canvas extends JPanel {
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         image.createGraphics();
         super.setPreferredSize(new Dimension(width, height));
-        super.setBackground(Color.WHITE);
         super.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         CanvasListener listener = new CanvasListener();
         super.addMouseListener(listener);
@@ -68,6 +66,7 @@ public class Canvas extends JPanel {
     
     public void setTool(Tool tool) {
         this.tool = tool;
+        repaint();
     }
     
     public Tool getTool() {

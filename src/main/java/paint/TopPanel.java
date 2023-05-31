@@ -17,7 +17,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import paint.tools.Tool;
-import paint.tools.Toolbox;
 
 /**
  *
@@ -37,10 +36,10 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener, 
         super();
         this.paint = paint;
         this.settings = paint.getSettings();
-        init();
+        buildUI();
     }
     
-    private void init() {
+    private void buildUI() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         int brushSize = settings.getBrushSize();
@@ -58,7 +57,7 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener, 
         add(colorButton);
         toolLabel = new JLabel("Tool:");
         add(toolLabel);
-        String[] tools = new String[] {"Brush", "Pen", "Eraser"};
+        String[] tools = new String[] {"Brush", "Pen", "Eraser", "Marquee"};
         toolCombo = new JComboBox(tools);
         toolCombo.addActionListener(this);
         add(toolCombo);
@@ -80,18 +79,16 @@ public class TopPanel extends JPanel implements ActionListener, ChangeListener, 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == colorButton) {
-            Color initial = settings.getPaintColor();
-            Color choice = JColorChooser.showDialog(this, "Chooose a color", initial);
+            Color choice = JColorChooser.showDialog(this, "Chooose a color", settings.getPaintColor());
             if (choice != null) {
                 colorButton.setColor(choice);
                 settings.setPaintColor(choice);
             }
         }
         else if (e.getSource() == toolCombo) {
-            Canvas canvas = paint.getCanvas();
             String value = (String) toolCombo.getSelectedItem();
-            Toolbox toolbox = canvas.getToolbox();
-            Tool tool = toolbox.get(value);
+            Canvas canvas = paint.getCanvas();
+            Tool tool = canvas.getToolbox().get(value);
             canvas.setTool(tool);
         }
     }

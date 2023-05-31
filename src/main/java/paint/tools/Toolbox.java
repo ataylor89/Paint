@@ -8,26 +8,19 @@ import paint.Paint;
  */
 public class Toolbox {
     
-    private Brush brush;
-    private Pen pen;
-    private Eraser eraser;
+    private Paint paint;
     
     public Toolbox(Paint paint) {
-        brush = new Brush(paint);
-        pen = new Pen(paint);
-        eraser = new Eraser(paint);
+        this.paint = paint;
     }
 
     public Tool get(String name) {
-        switch (name.toLowerCase()) {
-            case "brush":
-                return brush;
-            case "pen":
-                return pen;
-            case "eraser":
-                return eraser;
-            default:
-                return null;
-        }
+        return switch (name.toLowerCase()) {
+            case "brush" -> new Brush(paint);
+            case "pen" -> new Pen(paint);
+            case "eraser" -> new Eraser(paint);
+            case "marquee" -> new Marquee(paint);
+            default -> null;
+        };
     }
 }
