@@ -16,8 +16,11 @@ import paint.App;
 import paint.gui.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
-import paint.transform.Transform;
-import paint.transform.TransformFactory;
+import paint.transform.BackgroundTransform;
+import paint.transform.ClearTransform;
+import paint.transform.FillTransform;
+import paint.transform.FitCanvasToImage;
+import paint.transform.FitImageToCanvas;
 
 /**
  *
@@ -38,10 +41,8 @@ public class MenuListener implements ActionListener {
         switch (actionCommand.toLowerCase()) {
             case "clear" -> {
                 Settings settings = app.getSettings();
-                Easel easel = app.getEasel();
-                TransformFactory factory = easel.getTransformFactory();
-                Transform clear = factory.get("clear");
-                clear.apply();
+                ClearTransform transform = new ClearTransform(app);
+                transform.apply();
                 settings.setFile(null);
                 settings.notify("fileChanged");
             }
@@ -54,8 +55,7 @@ public class MenuListener implements ActionListener {
                     try {
                         BufferedImage image = ImageIO.read(file);
                         settings.setLayeredImage(new LayeredImage(image));
-                        TransformFactory transforms = easel.getTransformFactory();
-                        Transform transform = transforms.get("FitCanvasToImage");
+                        FitCanvasToImage transform = new FitCanvasToImage(app);
                         transform.apply();
                         settings.setFile(file);
                         settings.notify("fileChanged");
@@ -98,9 +98,7 @@ public class MenuListener implements ActionListener {
                 System.exit(0);
             }
             case "fitcanvastoimage" -> {
-                Easel easel = app.getEasel();
-                TransformFactory factory = easel.getTransformFactory();
-                Transform transform = factory.get("FitCanvasToImage");
+                FitCanvasToImage transform = new FitCanvasToImage(app);
                 transform.apply();
             }
             case "fitimagetocanvas" -> {
@@ -109,15 +107,12 @@ public class MenuListener implements ActionListener {
                 String title = "Resize image";
                 int optionType = JOptionPane.YES_NO_OPTION;
                 if (JOptionPane.showConfirmDialog(easel, message, title, optionType) == JOptionPane.YES_OPTION) {
-                    TransformFactory transforms = easel.getTransformFactory();
-                    Transform transform = transforms.get("FitImageToCanvas");
+                    FitImageToCanvas transform = new FitImageToCanvas(app);
                     transform.apply();
                 }
             }
             case "fillselection" -> {
-                Easel easel = app.getEasel();
-                TransformFactory factory = easel.getTransformFactory();
-                Transform transform = factory.get("Fill");
+                FillTransform transform = new FillTransform(app);
                 transform.apply();
             }
             case "setbackgroundcolor" -> {
@@ -127,8 +122,7 @@ public class MenuListener implements ActionListener {
                 Color color = JColorChooser.showDialog(easel, "Choose a color", initial);
                 if (color != null) {
                     settings.setBackgroundColor(color);
-                    TransformFactory factory = easel.getTransformFactory();
-                    Transform transform = factory.get("SetBackgroundColor");
+                    BackgroundTransform transform = new BackgroundTransform(app);
                     transform.apply();
                 }
             }

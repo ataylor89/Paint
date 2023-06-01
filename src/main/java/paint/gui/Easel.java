@@ -9,7 +9,6 @@ import paint.App;
 import paint.Settings;
 import paint.listener.WindowListener;
 import paint.tools.Toolbox;
-import paint.transform.TransformFactory;
 
 /**
  *
@@ -19,7 +18,6 @@ public class Easel extends JFrame {
 
     private App app;
     private Toolbox toolbox;
-    private TransformFactory transformFactory;
     private MenuBar menuBar;
     private JFileChooser fileChooser;
     private JPanel contentPane;
@@ -30,7 +28,6 @@ public class Easel extends JFrame {
         super("Paint ~ Canvas: 1200x725 ~ Image: 1200x75");
         this.app = app;       
         toolbox = new Toolbox(app);
-        transformFactory = new TransformFactory(app);
     }
     
     public void createAndShowGui() {
@@ -68,14 +65,6 @@ public class Easel extends JFrame {
     
     public Toolbox getToolbox() {
         return toolbox;
-    }
-    
-    public void setTransformFactory(TransformFactory transforms) {
-        this.transformFactory = transforms;
-    }
-    
-    public TransformFactory getTransformFactory() {
-        return transformFactory;
     }
     
     public void setFileChooser(JFileChooser fileChooser) {
