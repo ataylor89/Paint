@@ -1,6 +1,6 @@
 package paint.tools;
 
-import paint.Paint;
+import paint.App;
 
 /**
  *
@@ -8,18 +8,18 @@ import paint.Paint;
  */
 public class Toolbox {
     
-    private Paint paint;
+    private App app;
     
-    public Toolbox(Paint paint) {
-        this.paint = paint;
+    public Toolbox(App app) {
+        this.app = app;
     }
 
     public Tool get(String name) {
         return switch (name.toLowerCase()) {
-            case "brush" -> new Brush(paint);
-            case "pen" -> new Pen(paint);
-            case "eraser" -> new Eraser(paint);
-            case "marquee" -> new Marquee(paint);
+            case "brush" -> new Brush(app);
+            case "pen" -> new Pen(app);
+            case "eraser" -> new Eraser(app);
+            case "marquee" -> new Marquee(app);
             default -> null;
         };
     }

@@ -2,14 +2,13 @@ package paint.tools;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import javax.swing.SwingUtilities;
-import paint.Canvas;
-import paint.Paint;
+import paint.App;
+import paint.gui.Canvas;
+import paint.gui.Easel;
 import paint.Settings;
 
 /**
@@ -18,49 +17,34 @@ import paint.Settings;
  */
 public class Marquee extends Tool {
 
-    private Paint paint;
-    private Settings settings;
+    private App app;
     private MouseEvent beginning, end;
-    private Stroke stroke;
+    private final Stroke stroke;
     
-    public Marquee(Paint paint) {
-        this.paint = paint;
-        this.settings = paint.getSettings();
+    public Marquee(App app) {
+        this.app = app;
         stroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[] {10}, 0);
     }
     
     public void draw() {
-        Canvas canvas = paint.getCanvas();
+        Settings settings = app.getSettings();
+        Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
             Graphics2D cg = (Graphics2D) canvas.getGraphics();
             cg.setColor(Color.DARK_GRAY);
             cg.setStroke(stroke);
-            int x = Math.min(beginning.getX(), end.getX());
-            int y = Math.min(beginning.getY(), end.getY());
-            int width = Math.abs(beginning.getX() - end.getX());
-            int height = Math.abs(beginning.getY() - end.getY());
+            int x1 = beginning.getX();
+            int y1 = beginning.getY();
+            int x2 = end.getX();
+            int y2 = end.getY();
+            int x = Math.min(x1, x2);
+            int y = Math.min(y1, y2);
+            int width = Math.abs(x1 - x2);
+            int height = Math.abs(y1 - y2);
             cg.drawRect(x, y, width, height);
-        });
-    }
-    
-    public void fill() {
-        Canvas canvas = paint.getCanvas();
-        BufferedImage image = canvas.getImage();
-        canvas.repaint();
-        SwingUtilities.invokeLater(() -> {
-            Color color = settings.getPaintColor();
-            int x = Math.min(beginning.getX(), end.getX());
-            int y = Math.min(beginning.getY(), end.getY());
-            int width = Math.abs(beginning.getX() - end.getX());
-            int height = Math.abs(beginning.getY() - end.getY());
-            Graphics cg = canvas.getGraphics();
-            cg.setColor(color);
-            cg.fillRect(x, y, width, height);    
-            Graphics ig = image.getGraphics();
-            ig.setColor(color);
-            ig.fillRect(x, y, width, height);
-            reset();
+            settings.notify("marqueeActive");
         });
     }
     
@@ -75,6 +59,7 @@ public class Marquee extends Tool {
     
     @Override
     public void press(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.GLIDE) {
             gliding = !gliding;
             if (gliding) {
@@ -92,6 +77,7 @@ public class Marquee extends Tool {
    
     @Override
     public void move(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.GLIDE) {
             if (gliding) {
                 end = event;
@@ -102,9 +88,26 @@ public class Marquee extends Tool {
 
     @Override
     public void drag(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.DRAG) {
             end = event;
             draw();
         }
+    }
+
+    public void setBeginning(MouseEvent beginning) {
+        this.beginning = beginning;
+    }
+    
+    public MouseEvent getBeginning() {
+        return beginning;
+    }
+
+    public void setEnd(MouseEvent end) {
+        this.end = end;
+    }
+    
+    public MouseEvent getEnd() {
+        return end;
     }
 }

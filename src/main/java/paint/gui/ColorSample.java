@@ -1,4 +1,4 @@
-package paint;
+package paint.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;

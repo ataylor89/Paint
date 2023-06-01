@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-import paint.Canvas;
-import paint.Paint;
+import paint.App;
+import paint.gui.Canvas;
+import paint.gui.LayeredImage;
+import paint.gui.Easel;
 import paint.Settings;
 
 /**
@@ -18,13 +20,11 @@ import paint.Settings;
  */
 public class Eraser extends Tool {
 
-    private Paint paint;
-    private Settings settings;
-    private RenderingHints renderingHints;
+    private App app;
+    private final RenderingHints renderingHints;
     
-    public Eraser(Paint paint) {
-        this.paint = paint;
-        this.settings = paint.getSettings();
+    public Eraser(App app) {
+        this.app = app;
         Map<RenderingHints.Key, Object> hints = new HashMap<>();
         hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
@@ -33,8 +33,11 @@ public class Eraser extends Tool {
     }
     
     public void apply(MouseEvent event) {
-        Canvas canvas = paint.getCanvas();
-        BufferedImage image = canvas.getImage();
+        Settings settings = app.getSettings();
+        Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
+        LayeredImage layers = settings.getLayeredImage();
+        BufferedImage image = layers.getForeground();
         int x = event.getX();
         int y = event.getY();
         int diameter = settings.getBrushSize();
@@ -54,6 +57,7 @@ public class Eraser extends Tool {
     
     @Override
     public void press(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.GLIDE) {
             gliding = !gliding;
             if (gliding) {
@@ -67,6 +71,7 @@ public class Eraser extends Tool {
     
     @Override
     public void move(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.GLIDE) {
             if (gliding) {
                 apply(event);
@@ -76,6 +81,7 @@ public class Eraser extends Tool {
     
     @Override
     public void drag(MouseEvent event) {
+        Settings settings = app.getSettings();
         if (settings.getMode() == Settings.DRAG) {
             apply(event);
         }
