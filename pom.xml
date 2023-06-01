@@ -37,7 +37,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <mainClass>
-                                    paint.Paint    
+                                    paint.App
                                 </mainClass>
                             </manifest>
                         </archive>
