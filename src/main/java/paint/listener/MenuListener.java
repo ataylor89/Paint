@@ -55,9 +55,9 @@ public class MenuListener implements ActionListener {
                     try {
                         BufferedImage image = ImageIO.read(file);
                         settings.setLayeredImage(new LayeredImage(image));
+                        settings.setFile(file);
                         FitCanvasToImage transform = new FitCanvasToImage(app);
                         transform.apply();
-                        settings.setFile(file);
                         settings.notify("fileChanged");
                     } catch (IOException ex) {
                         System.err.println(ex);
