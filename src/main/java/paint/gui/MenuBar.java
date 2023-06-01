@@ -16,7 +16,7 @@ public class MenuBar extends JMenuBar {
     private MenuListener listener;
     private JMenu fileMenu;
     private JMenuItem clear, open, save, saveAs, exit;
-    private JMenu toolsMenu;
+    private JMenu transformMenu;
     private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection;
     
     public MenuBar(App app) {
@@ -49,21 +49,21 @@ public class MenuBar extends JMenuBar {
         exit.addActionListener(listener);
         fileMenu.add(getExit());
         add(fileMenu);
-        toolsMenu = new JMenu("Tools");
+        transformMenu = new JMenu("Transform");
         fitCanvasToImage = new JMenuItem("Fit canvas to image");
         fitCanvasToImage.setActionCommand("fitCanvasToImage");
         fitCanvasToImage.addActionListener(listener);
-        toolsMenu.add(fitCanvasToImage);
+        transformMenu.add(fitCanvasToImage);
         fitImageToCanvas = new JMenuItem("Fit image to canvas");
         fitImageToCanvas.setActionCommand("fitImageToCanvas");
         fitImageToCanvas.addActionListener(listener);
-        toolsMenu.add(getFitImageToCanvas());
+        transformMenu.add(fitImageToCanvas);
         fillSelection = new JMenuItem("Fill selection");
         fillSelection.setActionCommand("fillSelection");
         fillSelection.setEnabled(false);
         fillSelection.addActionListener(listener);
-        toolsMenu.add(fillSelection);
-        add(toolsMenu);
+        transformMenu.add(fillSelection);
+        add(transformMenu);
     }
 
     public JMenu getFileMenu() {
@@ -114,12 +114,12 @@ public class MenuBar extends JMenuBar {
         this.exit = exit;
     }
 
-    public JMenu getToolsMenu() {
-        return toolsMenu;
+    public JMenu getTransformMenu() {
+        return transformMenu;
     }
 
-    public void setToolsMenu(JMenu toolsMenu) {
-        this.toolsMenu = toolsMenu;
+    public void setTransformMenu(JMenu transformMenu) {
+        this.transformMenu = transformMenu;
     }
 
     public JMenuItem getFitCanvasToImage() {
