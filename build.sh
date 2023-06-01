@@ -2,7 +2,7 @@ mvn clean install
 jpackage --input target/ \
   --name Paint \
   --main-jar Paint.jar \
-  --main-class paint.Paint \
+  --main-class paint.App \
   --type dmg \
   --app-version "1.0.0" \
   --vendor "Andrew's software" \
