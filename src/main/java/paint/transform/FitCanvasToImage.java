@@ -6,7 +6,6 @@ import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.LayeredImage;
 import paint.gui.Easel;
-import paint.listener.TransformListener;
 
 /**
  *
@@ -15,11 +14,9 @@ import paint.listener.TransformListener;
 public class FitCanvasToImage implements Transform {
     
     private App app;
-    private TransformListener listener;
     
-    public FitCanvasToImage(App app, TransformListener listener) {
+    public FitCanvasToImage(App app) {
         this.app = app;
-        this.listener = listener;
     }
     
     @Override
@@ -32,8 +29,5 @@ public class FitCanvasToImage implements Transform {
         int h = image.getHeight();
         canvas.setPreferredSize(new Dimension(w, h));
         easel.pack();
-        
-        if (listener != null) 
-            listener.notify("FitCanvasToImage");
     }
 }
