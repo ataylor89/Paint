@@ -61,6 +61,7 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
                 String value = (String) toolCombo.getSelectedItem();
                 Tool tool = easel.getToolbox().get(value);
                 settings.setTool(tool);
+                settings.notify("toolChanged");
             }
         }
     }

@@ -10,6 +10,7 @@ import paint.App;
 import paint.gui.Canvas;
 import paint.gui.Easel;
 import paint.Settings;
+import paint.gui.Selection;
 
 /**
  *
@@ -44,17 +45,9 @@ public class Marquee extends Tool {
             int width = Math.abs(x1 - x2);
             int height = Math.abs(y1 - y2);
             cg.drawRect(x, y, width, height);
-            settings.notify("marqueeActive");
+            settings.setSelection(new Selection(x, y, width, height));
+            settings.notify("selectionChanged");
         });
-    }
-    
-    public void reset() {
-        beginning = null;
-        end = null;
-    }
-    
-    public boolean active() {
-        return beginning != null;
     }
     
     @Override
@@ -93,21 +86,5 @@ public class Marquee extends Tool {
             end = event;
             draw();
         }
-    }
-
-    public void setBeginning(MouseEvent beginning) {
-        this.beginning = beginning;
-    }
-    
-    public MouseEvent getBeginning() {
-        return beginning;
-    }
-
-    public void setEnd(MouseEvent end) {
-        this.end = end;
-    }
-    
-    public MouseEvent getEnd() {
-        return end;
     }
 }

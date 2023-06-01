@@ -17,7 +17,7 @@ public class MenuBar extends JMenuBar {
     private JMenu fileMenu;
     private JMenuItem clear, open, save, saveAs, exit;
     private JMenu transformMenu;
-    private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection;
+    private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection, setBackgroundColor;
     
     public MenuBar(App app) {
         super();
@@ -63,6 +63,11 @@ public class MenuBar extends JMenuBar {
         fillSelection.setEnabled(false);
         fillSelection.addActionListener(listener);
         transformMenu.add(fillSelection);
+        setBackgroundColor = new JMenuItem("Set background color");
+        setBackgroundColor.setActionCommand("setBackgroundColor");
+        setBackgroundColor.setEnabled(true);
+        setBackgroundColor.addActionListener(listener);
+        transformMenu.add(setBackgroundColor);
         add(transformMenu);
     }
 

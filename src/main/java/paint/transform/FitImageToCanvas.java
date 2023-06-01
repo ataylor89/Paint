@@ -36,5 +36,6 @@ public class FitImageToCanvas implements Transform {
         gb.drawImage(oldImage.getBackground(), 0, 0, null);
         gf.drawImage(oldImage.getForeground(), 0, 0, null);
         settings.setLayeredImage(newImage);
+        settings.notify("imageChanged");
     }
 }

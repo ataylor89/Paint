@@ -20,6 +20,7 @@ public class TransformFactory {
             case "fill" -> new FillTransform(app);
             case "fitcanvastoimage" -> new FitCanvasToImage(app);
             case "fitimagetocanvas" -> new FitImageToCanvas(app);
+            case "setbackgroundcolor" -> new BackgroundTransform(app);
             default -> null;
         };
     }

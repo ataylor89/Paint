@@ -3,6 +3,7 @@ package paint;
 import java.awt.Color;
 import java.io.File;
 import paint.gui.LayeredImage;
+import paint.gui.Selection;
 import paint.listener.SettingChangeListener;
 import paint.tools.Tool;
 
@@ -16,10 +17,12 @@ public class Settings {
     
     private int brushSize;
     private Color paintColor;
+    private Color backgroundColor;
     private int mode;
     private Tool tool;
     private File file;
     private LayeredImage layeredImage;
+    private Selection selection;
     
     public static final int GLIDE = 0;
     public static final int DRAG = 1;
@@ -46,6 +49,14 @@ public class Settings {
         return paintColor;
     }
     
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+    
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+    
     public void setMode(int mode) {
         this.mode = mode;
     }
@@ -56,9 +67,6 @@ public class Settings {
     
     public void setTool(Tool tool) {
         this.tool = tool;
-        
-        if (listener != null) 
-            listener.notify("toolChanged");
     }
     
     public Tool getTool() {
@@ -67,9 +75,6 @@ public class Settings {
 
     public void setFile(File file) {
         this.file = file;
-        
-        if (listener != null) 
-            listener.notify("fileChanged");
     }
     
     public File getFile() {
@@ -78,13 +83,18 @@ public class Settings {
 
     public void setLayeredImage(LayeredImage layeredImage) {
         this.layeredImage = layeredImage;
-        
-        if (listener != null)
-            listener.notify("imageChanged");
     }
     
     public LayeredImage getLayeredImage() {
         return layeredImage;
+    }
+    
+    public void setSelection(Selection selection) {
+        this.selection = selection;
+    }
+    
+    public Selection getSelection() {
+        return selection;
     }
     
     public void setListener(SettingChangeListener listener) {

@@ -7,6 +7,7 @@ import paint.gui.MenuBar;
 import paint.gui.Easel;
 import paint.Settings;
 import paint.gui.Canvas;
+import paint.gui.Selection;
 
 /**
  *
@@ -29,6 +30,9 @@ public class SettingChangeListener {
                 JMenuItem save = menuBar.getSave();
                 File file = settings.getFile();
                 save.setEnabled(file != null);
+                Canvas canvas = easel.getCanvas();
+                canvas.repaint();
+                easel.refreshTitle();
             }
             case "imagechanged" -> {
                 Easel easel = app.getEasel();
@@ -37,18 +41,22 @@ public class SettingChangeListener {
                 easel.refreshTitle();
             }
             case "toolchanged" -> {
+                Settings settings = app.getSettings();
+                settings.setSelection(null);
                 Easel easel = app.getEasel();
-                MenuBar menuBar = (MenuBar) easel.getJMenuBar();
-                JMenuItem fill = menuBar.getFillSelection();
-                fill.setEnabled(false);
                 Canvas canvas = easel.getCanvas();
                 canvas.repaint();
+                MenuBar menuBar = (MenuBar) easel.getJMenuBar();
+                JMenuItem fill = menuBar.getFillSelection();
+                fill.setEnabled(false);               
             }
-            case "marqueeactive" -> {
+            case "selectionchanged" -> {
+                Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 MenuBar menuBar = (MenuBar) easel.getJMenuBar();
                 JMenuItem fill = menuBar.getFillSelection();
-                fill.setEnabled(true);
+                Selection selection = settings.getSelection();
+                fill.setEnabled(selection != null);
             }
         }
     }
