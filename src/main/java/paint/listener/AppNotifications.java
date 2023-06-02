@@ -27,15 +27,15 @@ public class AppNotifications {
             case "filechanged" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
+                easel.refreshTitle();
+                ToolBar toolBar = easel.getToolBar();
+                toolBar.refresh(); 
                 MenuBar menuBar = (MenuBar) easel.getJMenuBar();
                 JMenuItem save = menuBar.getSave();
                 File file = settings.getFile();
-                save.setEnabled(file != null);
+                save.setEnabled(file != null);              
                 Canvas canvas = easel.getCanvas();
                 canvas.repaint();
-                easel.refreshTitle();
-                ToolBar toolBar = easel.getToolBar();
-                toolBar.refresh();
             }
             case "imagechanged" -> {
                 Easel easel = app.getEasel();

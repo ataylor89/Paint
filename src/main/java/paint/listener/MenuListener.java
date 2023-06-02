@@ -22,7 +22,6 @@ import paint.image.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
 import paint.transform.BackgroundTransform;
-import paint.transform.ClearTransform;
 import paint.transform.FillTransform;
 import paint.transform.FitCanvasToImage;
 import paint.transform.FitImageToCanvas;
@@ -44,11 +43,7 @@ public class MenuListener implements ActionListener {
         JMenuItem menuItem = (JMenuItem) e.getSource();
         String actionCommand = menuItem.getActionCommand();
         switch (actionCommand.toLowerCase()) {
-            case "clear" -> {
-                Settings settings = app.getSettings();                
-                settings.setFile(null);
-                ClearTransform transform = new ClearTransform(app);
-                transform.apply();
+            case "clear" -> {               
                 app.restoreDefaults();
                 app.notify("fileChanged");
             }

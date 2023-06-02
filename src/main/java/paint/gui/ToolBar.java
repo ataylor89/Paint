@@ -71,6 +71,7 @@ public class ToolBar extends JPanel {
         Settings settings = app.getSettings();
         sizeSpinner.setValue(settings.getBrushSize());
         colorButton.setColor(settings.getPaintColor());
+        colorButton.repaint();
         toolCombo.setSelectedItem(settings.getTool());
         glideCheckBox.setSelected(settings.getMode() == Settings.GLIDE);
     }

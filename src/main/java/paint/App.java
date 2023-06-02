@@ -21,6 +21,20 @@ public class App {
         notifications.forward(signal);
     }
     
+    public Settings getDefaults() {
+        Settings defaults = new Settings();
+        defaults.setBrushSize(20);
+        defaults.setPaintColor(new Color(0,153,255));
+        defaults.setMode(Settings.GLIDE);
+        defaults.setTool("Brush");
+        defaults.setLayeredImage(new LayeredImage(1200, 725));
+        return defaults;
+    }
+    
+    public void restoreDefaults() {
+        settings = getDefaults();
+    }
+    
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
@@ -43,20 +57,6 @@ public class App {
     
     public Easel getEasel() {
         return easel;
-    }
-    
-    public void restoreDefaults() {
-        settings = getDefaults();
-    }
-    
-    public Settings getDefaults() {
-        Settings defaults = new Settings();
-        defaults.setBrushSize(20);
-        defaults.setPaintColor(new Color(0,153,255));
-        defaults.setMode(Settings.GLIDE);
-        defaults.setTool("Brush");
-        defaults.setLayeredImage(new LayeredImage(1200, 725));
-        return defaults;
     }
     
     public static void main(String[] args) {

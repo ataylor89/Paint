@@ -16,7 +16,6 @@ public class TransformFactory {
     
     public Transform get(String transform) {
         return switch (transform.toLowerCase()) {
-            case "clear" -> new ClearTransform(app);
             case "fill" -> new FillTransform(app);
             case "fitcanvastoimage" -> new FitCanvasToImage(app);
             case "fitimagetocanvas" -> new FitImageToCanvas(app);
