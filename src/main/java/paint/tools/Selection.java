@@ -1,4 +1,4 @@
-package paint.gui;
+package paint.tools;
 
 import java.io.Serializable;
 

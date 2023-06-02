@@ -81,7 +81,7 @@ public class MenuBar extends JMenuBar {
     public void refresh() {
         Settings settings = app.getSettings();
         save.setEnabled(settings.getFile() != null);
-        fillSelection.setEnabled(settings.getSelection() != null);
+        fillSelection.setEnabled(settings.hasMarquee());
     }
 
     public JMenu getFileMenu() {

@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.SwingUtilities;
 import paint.App;
-import paint.Settings;
 import paint.gui.Canvas;
-import paint.gui.Selection;
+import paint.tools.Marquee;
+import paint.tools.Selection;
 
 /**
  *
@@ -21,20 +21,20 @@ public class FillTransform implements Transform {
     }
     
     @Override
-    public void apply() {        
+    public void apply() {
         Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
-            Settings settings = app.getSettings();       
+            Marquee marquee = (Marquee) app.getEasel().getToolbox().get("Marquee");
+            Selection selection = marquee.calculate();
+            Color color = app.getSettings().getPaintColor();
             Graphics canvasGraphics = canvas.getGraphics();
-            Graphics imageGraphics = settings.getLayeredImage().getForeground().getGraphics();
-            Color color = settings.getPaintColor();
-            Selection sel = settings.getSelection();
+            Graphics imageGraphics = app.getSettings().getLayeredImage().getForeground().getGraphics();            
             canvasGraphics.setColor(color);
-            canvasGraphics.fillRect(sel.x, sel.y, sel.width, sel.height);    
+            canvasGraphics.fillRect(selection.x, selection.y, selection.width, selection.height);    
             imageGraphics.setColor(color);
-            imageGraphics.fillRect(sel.x, sel.y, sel.width, sel.height);            
-            app.getSettings().setSelection(null);
+            imageGraphics.fillRect(selection.x, selection.y, selection.width, selection.height);            
+            app.getSettings().setMarquee(false);
         });
     }
 }

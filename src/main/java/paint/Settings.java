@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.Serializable;
 import paint.image.LayeredImage;
-import paint.gui.Selection;
 
 /**
  *
@@ -18,8 +17,9 @@ public class Settings implements Serializable {
     private int mode;
     private String tool;
     private File file;
-    private LayeredImage layeredImage;
-    private Selection selection;
+    private LayeredImage layeredImage;   
+    
+    private transient boolean marquee;
     
     public static final int GLIDE = 0;
     public static final int DRAG = 1;
@@ -84,11 +84,11 @@ public class Settings implements Serializable {
         return layeredImage;
     }
     
-    public void setSelection(Selection selection) {
-        this.selection = selection;
+    public void setMarquee(boolean marquee) {
+        this.marquee = marquee;
     }
     
-    public Selection getSelection() {
-        return selection;
+    public boolean hasMarquee() {
+        return marquee;
     }
 }

@@ -42,7 +42,7 @@ public class AppNotifications {
             }
             case "changedTool" -> {
                 Settings settings = app.getSettings();
-                settings.setSelection(null);
+                settings.setMarquee(false);
                 Canvas canvas = app.getEasel().getCanvas();
                 canvas.repaint();
             }
