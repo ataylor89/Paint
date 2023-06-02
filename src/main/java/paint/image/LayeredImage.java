@@ -28,6 +28,14 @@ public class LayeredImage implements Serializable {
         foreground.createGraphics();
     }
     
+    public BufferedImage merge() {
+        BufferedImage composite = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = composite.createGraphics();
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(foreground, 0, 0, null);
+        return composite;
+    }
+    
     private void writeObject(ObjectOutputStream out) {
         try {
             out.defaultWriteObject();
@@ -53,14 +61,6 @@ public class LayeredImage implements Serializable {
         }
     }
     
-    public BufferedImage merge() {
-        BufferedImage composite = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = composite.createGraphics();
-        g.drawImage(background, 0, 0, null);
-        g.drawImage(foreground, 0, 0, null);
-        return composite;
-    }
-
     public void setWidth(int width) {
         this.width = width;
     }
