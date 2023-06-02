@@ -17,7 +17,7 @@ public class Settings implements Serializable {
     private int mode;
     private String tool;
     private File file;
-    private LayeredImage layeredImage;   
+    private LayeredImage layeredImage;
     
     private transient boolean marquee;
     
