@@ -37,8 +37,8 @@ public class AppNotifications {
             }
             case "changedTool" -> {
                 Settings settings = app.getSettings();
-                Easel easel = app.getEasel();
                 settings.setSelection(null);
+                Easel easel = app.getEasel();
                 easel.getCanvas().repaint();      
             }
         }
