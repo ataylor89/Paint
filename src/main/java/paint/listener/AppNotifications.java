@@ -2,6 +2,7 @@ package paint.listener;
 
 import paint.App;
 import paint.Settings;
+import paint.gui.Canvas;
 import paint.gui.Easel;
 import paint.transform.FitCanvasToImage;
 
@@ -24,22 +25,26 @@ public class AppNotifications {
                 Easel easel = app.getEasel();
                 easel.refreshTitle();
                 easel.getToolBar().refresh();
-                easel.getCanvas().repaint();
+                Canvas canvas = easel.getCanvas();
+                canvas.setBackground(app.getSettings().getBackgroundColor());
+                canvas.repaint();
             }
             case "resizedImage", "resizedCanvas" -> {
                 Easel easel = app.getEasel();
-                easel.getCanvas().repaint();
                 easel.refreshTitle();
+                Canvas canvas = easel.getCanvas();
+                canvas.repaint();
             }
             case "changedBackgroundColor" -> {
-                Easel easel = app.getEasel();
-                easel.getCanvas().repaint();
+                Canvas canvas = app.getEasel().getCanvas();
+                canvas.setBackground(app.getSettings().getBackgroundColor());
+                canvas.repaint();
             }
             case "changedTool" -> {
                 Settings settings = app.getSettings();
                 settings.setSelection(null);
-                Easel easel = app.getEasel();
-                easel.getCanvas().repaint();      
+                Canvas canvas = app.getEasel().getCanvas();
+                canvas.repaint();
             }
         }
     }

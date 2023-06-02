@@ -29,15 +29,6 @@ public class Canvas extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Color color = app.getSettings().getBackgroundColor();
-        if (color != null) {
-            setOpaque(true);
-            setBackground(color);
-        }
-        else {
-            setOpaque(false);
-            setBackground(new Color(0,0,0,0));
-        }
         BufferedImage composite = app.getSettings().getLayeredImage().merge();
         g.drawImage(composite, 0, 0, null);
     }
