@@ -20,10 +20,10 @@ public class AppNotifications {
     public void forward(String event) {
         switch (event) {
             case "restoredDefaults", "openedFile" -> {
+                new FitCanvasToImage(app).apply();
                 Easel easel = app.getEasel();
                 easel.refreshTitle();
                 easel.getToolBar().refresh();
-                new FitCanvasToImage(app).apply();
                 easel.getCanvas().repaint();
             }
             case "resizedImage", "resizedCanvas" -> {
