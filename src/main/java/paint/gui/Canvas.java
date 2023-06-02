@@ -29,10 +29,10 @@ public class Canvas extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Color backgroundColor = app.getSettings().getBackgroundColor();
-        if (backgroundColor != null) {
+        Color color = app.getSettings().getBackgroundColor();
+        if (color != null) {
             setOpaque(true);
-            setBackground(backgroundColor);
+            setBackground(color);
         }
         else {
             setOpaque(false);
