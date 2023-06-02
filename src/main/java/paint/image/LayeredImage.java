@@ -28,15 +28,6 @@ public class LayeredImage implements Serializable {
         foreground.createGraphics();
     }
     
-    public LayeredImage(BufferedImage image) {
-        this.width = image.getWidth();
-        this.height = image.getHeight();
-        background = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        foreground = image;
-        background.createGraphics();
-        foreground.createGraphics();
-    }
-    
     private void writeObject(ObjectOutputStream out) {
         try {
             out.defaultWriteObject();
