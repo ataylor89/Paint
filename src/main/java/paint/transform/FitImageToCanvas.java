@@ -1,12 +1,10 @@
 package paint.transform;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
 import paint.image.LayeredImage;
-import paint.gui.Easel;
 
 /**
  *
@@ -23,19 +21,13 @@ public class FitImageToCanvas implements Transform {
     @Override
     public void apply() {
         Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        Canvas canvas = easel.getCanvas();
-        int w = canvas.getWidth();
-        int h = canvas.getHeight();
-        LayeredImage newImage = new LayeredImage(w, h);
-        BufferedImage newBackground = newImage.getBackground();
-        BufferedImage newForeground = newImage.getForeground();
-        Graphics gb = newBackground.createGraphics();
-        Graphics gf = newForeground.createGraphics();
         LayeredImage oldImage = settings.getLayeredImage();
-        gb.drawImage(oldImage.getBackground(), 0, 0, null);
-        gf.drawImage(oldImage.getForeground(), 0, 0, null);
+        Canvas canvas = app.getEasel().getCanvas();
+        LayeredImage newImage = new LayeredImage(canvas.getWidth(), canvas.getHeight());
+        Graphics backgroundGraphics = newImage.getBackground().createGraphics();
+        Graphics foregroundGraphics = newImage.getForeground().createGraphics();
+        backgroundGraphics.drawImage(oldImage.getBackground(), 0, 0, null);
+        foregroundGraphics.drawImage(oldImage.getForeground(), 0, 0, null);
         settings.setLayeredImage(newImage);
-        app.notify("imageChanged");
     }
 }

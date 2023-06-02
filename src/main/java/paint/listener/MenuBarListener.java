@@ -16,36 +16,44 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.event.MenuEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import paint.App;
-import paint.image.LayeredImage;
-import paint.gui.Easel;
 import paint.Settings;
+import paint.gui.Easel;
+import paint.gui.MenuBar;
 import paint.transform.BackgroundTransform;
 import paint.transform.FillTransform;
 import paint.transform.FitCanvasToImage;
 import paint.transform.FitImageToCanvas;
+import paint.util.MenuAdapter;
 
 /**
  *
  * @author andrewtaylor
  */
-public class MenuListener implements ActionListener {
+public class MenuBarListener extends MenuAdapter implements ActionListener {
     
     private App app;
     
-    public MenuListener(App app) {
+    public MenuBarListener(App app) {
         this.app = app;
+    }
+    
+    @Override
+    public void menuSelected(MenuEvent e) {
+        MenuBar menuBar = (MenuBar) app.getEasel().getJMenuBar();
+        menuBar.refresh();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem menuItem = (JMenuItem) e.getSource();
         String actionCommand = menuItem.getActionCommand();
-        switch (actionCommand.toLowerCase()) {
+        switch (actionCommand) {
             case "clear" -> {               
                 app.restoreDefaults();
-                app.notify("fileChanged");
+                app.notify("restoredDefaults");
             }
             case "open" -> {
                 Easel easel = app.getEasel();
@@ -54,12 +62,8 @@ public class MenuListener implements ActionListener {
                 if (fileChooser.showOpenDialog(easel) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-                        Settings settings = (Settings) in.readObject();
-                        app.setSettings(settings);
-                        FitCanvasToImage transform = new FitCanvasToImage(app);
-                        transform.apply();
-                        settings.setFile(file);
-                        app.notify("fileChanged");
+                        app.setSettings((Settings) in.readObject());
+                        app.notify("openedFile");
                     } catch (IOException | ClassNotFoundException ex) {
                         System.err.println(ex);
                     }
@@ -75,7 +79,7 @@ public class MenuListener implements ActionListener {
                     System.err.println(ex);
                 }       
             }
-            case "saveas" -> {
+            case "saveAs" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 JFileChooser fileChooser = easel.getFileChooser();
@@ -83,10 +87,9 @@ public class MenuListener implements ActionListener {
                 if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                        settings.setFile(file);
                         out.writeObject(settings);
                         out.flush();
-                        settings.setFile(file);
-                        app.notify("fileChanged");
                     } catch (IOException ex) {
                         System.err.println(ex);
                     }                  
@@ -99,8 +102,7 @@ public class MenuListener implements ActionListener {
                 fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
                 if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    LayeredImage image = settings.getLayeredImage();
-                    BufferedImage composite = image.merge();
+                    BufferedImage composite = settings.getLayeredImage().merge();
                     try {
                         ImageIO.write(composite, "png", file);
                     } catch (IOException ex) {
@@ -113,33 +115,33 @@ public class MenuListener implements ActionListener {
                 easel.dispatchEvent(new WindowEvent(easel, WindowEvent.WINDOW_CLOSING));
                 System.exit(0);
             }
-            case "fitcanvastoimage" -> {
-                FitCanvasToImage transform = new FitCanvasToImage(app);
-                transform.apply();
+            case "fitCanvasToImage" -> {
+                new FitCanvasToImage(app).apply();
+                app.notify("resizedCanvas");
             }
-            case "fitimagetocanvas" -> {
+            case "fitImageToCanvas" -> {
                 Easel easel = app.getEasel();
                 String message = "Are you sure you want to resize the image?";
                 String title = "Resize image";
                 int optionType = JOptionPane.YES_NO_OPTION;
                 if (JOptionPane.showConfirmDialog(easel, message, title, optionType) == JOptionPane.YES_OPTION) {
-                    FitImageToCanvas transform = new FitImageToCanvas(app);
-                    transform.apply();
+                    new FitImageToCanvas(app).apply();
+                    app.notify("resizedImage");
                 }
             }
-            case "fillselection" -> {
-                FillTransform transform = new FillTransform(app);
-                transform.apply();
+            case "fillSelection" -> {             
+                new FillTransform(app).apply();
             }
-            case "setbackgroundcolor" -> {
+            case "setBackgroundColor" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 Color initial = settings.getBackgroundColor();
                 Color color = JColorChooser.showDialog(easel, "Choose a color", initial);
                 if (color != null) {
                     settings.setBackgroundColor(color);
-                    BackgroundTransform transform = new BackgroundTransform(app);
-                    transform.apply();
+                    easel.getCanvas().setBackground(color);
+                    new BackgroundTransform(app).apply();
+                    app.notify("changedBackgroundColor");
                 }
             }
         }

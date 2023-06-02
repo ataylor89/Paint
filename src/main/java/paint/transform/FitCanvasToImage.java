@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
-import paint.image.LayeredImage;
 import paint.gui.Easel;
+import paint.image.LayeredImage;
 
 /**
  *
@@ -25,9 +25,7 @@ public class FitCanvasToImage implements Transform {
         Easel easel = app.getEasel();
         Canvas canvas = easel.getCanvas();
         LayeredImage image = settings.getLayeredImage();
-        int w = image.getWidth();
-        int h = image.getHeight();
-        canvas.setPreferredSize(new Dimension(w, h));
+        canvas.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         easel.pack();
     }
 }

@@ -40,8 +40,8 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-        switch (actionCommand.toLowerCase()) {
-            case "choosecolor" -> {
+        switch (actionCommand) {
+            case "chooseColor" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 Color choice = JColorChooser.showDialog(easel, "Chooose a color", settings.getPaintColor());
@@ -52,14 +52,14 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
                     settings.setPaintColor(choice);
                 }
             }
-            case "choosetool" -> {
+            case "chooseTool" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 ToolBar toolBar = easel.getToolBar();
                 JComboBox toolCombo = toolBar.getToolCombo();
                 String toolName = (String) toolCombo.getSelectedItem();
                 settings.setTool(toolName);
-                app.notify("toolChanged");
+                app.notify("changedTool");
             }
         }
     }

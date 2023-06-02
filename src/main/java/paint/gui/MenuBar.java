@@ -4,7 +4,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import paint.App;
-import paint.listener.MenuListener;
+import paint.Settings;
+import paint.listener.MenuBarListener;
 
 /**
  *
@@ -13,7 +14,7 @@ import paint.listener.MenuListener;
 public class MenuBar extends JMenuBar {
 
     private App app;
-    private MenuListener listener;
+    private MenuBarListener listener;
     private JMenu fileMenu;
     private JMenuItem clear, open, save, saveAs, export, exit;
     private JMenu transformMenu;
@@ -22,12 +23,13 @@ public class MenuBar extends JMenuBar {
     public MenuBar(App app) {
         super();
         this.app = app;
-        this.listener = new MenuListener(app);
+        this.listener = new MenuBarListener(app);
         buildUI();
     }
     
     private void buildUI() {
         fileMenu = new JMenu("File");
+        fileMenu.addMenuListener(listener);
         clear = new JMenuItem("New");
         clear.setActionCommand("clear");
         clear.addActionListener(listener);
@@ -54,6 +56,7 @@ public class MenuBar extends JMenuBar {
         fileMenu.add(getExit());
         add(fileMenu);
         transformMenu = new JMenu("Transform");
+        transformMenu.addMenuListener(listener);
         fitCanvasToImage = new JMenuItem("Fit canvas to image");
         fitCanvasToImage.setActionCommand("fitCanvasToImage");
         fitCanvasToImage.addActionListener(listener);
@@ -73,6 +76,12 @@ public class MenuBar extends JMenuBar {
         setBackgroundColor.addActionListener(listener);
         transformMenu.add(setBackgroundColor);
         add(transformMenu);
+    }
+    
+    public void refresh() {
+        Settings settings = app.getSettings();
+        save.setEnabled(settings.getFile() != null);
+        fillSelection.setEnabled(settings.getSelection() != null);
     }
 
     public JMenu getFileMenu() {

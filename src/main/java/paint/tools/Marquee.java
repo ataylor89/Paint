@@ -7,9 +7,8 @@ import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import paint.App;
-import paint.gui.Canvas;
-import paint.gui.Easel;
 import paint.Settings;
+import paint.gui.Canvas;
 import paint.gui.Selection;
 
 /**
@@ -28,14 +27,9 @@ public class Marquee extends Tool {
     }
     
     public void draw() {
-        Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        Canvas canvas = easel.getCanvas();
+        Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
-            Graphics2D cg = (Graphics2D) canvas.getGraphics();
-            cg.setColor(Color.DARK_GRAY);
-            cg.setStroke(stroke);
             int x1 = beginning.getX();
             int y1 = beginning.getY();
             int x2 = end.getX();
@@ -44,9 +38,12 @@ public class Marquee extends Tool {
             int y = Math.min(y1, y2);
             int width = Math.abs(x1 - x2);
             int height = Math.abs(y1 - y2);
+            Graphics2D cg = (Graphics2D) canvas.getGraphics();
+            cg.setColor(Color.BLACK);
+            cg.setStroke(stroke);
             cg.drawRect(x, y, width, height);
+            Settings settings = app.getSettings();
             settings.setSelection(new Selection(x, y, width, height));
-            app.notify("selectionChanged");
         });
     }
     

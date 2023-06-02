@@ -2,14 +2,10 @@ package paint.transform;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
 import javax.swing.SwingUtilities;
 import paint.App;
-import paint.gui.Canvas;
-import paint.image.LayeredImage;
-import paint.gui.Easel;
 import paint.Settings;
+import paint.gui.Canvas;
 import paint.gui.Selection;
 
 /**
@@ -25,29 +21,20 @@ public class FillTransform implements Transform {
     }
     
     @Override
-    public void apply() {
-        Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        Canvas canvas = easel.getCanvas();
-        LayeredImage layers = settings.getLayeredImage();
-        BufferedImage image = layers.getForeground();
+    public void apply() {        
+        Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
-            Selection selection = settings.getSelection();
-            Point coordinate = selection.getCoordinate();
-            int x = coordinate.x;
-            int y = coordinate.y;
-            int width = selection.getWidth();
-            int height = selection.getHeight();
+            Settings settings = app.getSettings();       
+            Graphics canvasGraphics = canvas.getGraphics();
+            Graphics imageGraphics = settings.getLayeredImage().getForeground().getGraphics();
             Color color = settings.getPaintColor();
-            Graphics cg = canvas.getGraphics();
-            cg.setColor(color);
-            cg.fillRect(x, y, width, height);    
-            Graphics ig = image.getGraphics();
-            ig.setColor(color);
-            ig.fillRect(x, y, width, height);
-            settings.setSelection(null);
-            app.notify("selectionChanged");
+            Selection sel = settings.getSelection();
+            canvasGraphics.setColor(color);
+            canvasGraphics.fillRect(sel.x, sel.y, sel.width, sel.height);    
+            imageGraphics.setColor(color);
+            imageGraphics.fillRect(sel.x, sel.y, sel.width, sel.height);            
+            app.getSettings().setSelection(null);
         });
     }
 }

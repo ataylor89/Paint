@@ -17,8 +17,8 @@ public class App {
     
     public App() {}
     
-    public void notify(String signal) {
-        notifications.forward(signal);
+    public void notify(String event) {
+        notifications.forward(event);
     }
     
     public Settings getDefaults() {
