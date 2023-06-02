@@ -1,5 +1,6 @@
 package paint.gui;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,7 +30,15 @@ public class Canvas extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Canvas canvas = app.getEasel().getCanvas();
-        canvas.setBackground(app.getSettings().getBackgroundColor());
+        Color backgroundColor = app.getSettings().getBackgroundColor();
+        if (backgroundColor != null) {
+            canvas.setOpaque(true);
+            canvas.setBackground(backgroundColor);
+        }
+        else {
+            canvas.setOpaque(false);
+            canvas.setBackground(new Color(0,0,0,0));
+        }
         BufferedImage composite = app.getSettings().getLayeredImage().merge();
         g.drawImage(composite, 0, 0, null);
     }
