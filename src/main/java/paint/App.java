@@ -1,6 +1,7 @@
 package paint;
 
 import java.awt.Color;
+import javax.swing.SwingUtilities;
 import paint.gui.Easel;
 import paint.image.LayeredImage;
 import paint.listener.AppNotifications;
@@ -71,6 +72,8 @@ public class App {
         Easel easel = new Easel(app);
         app.setEasel(easel);
         
-        easel.createAndShowGui();
+        SwingUtilities.invokeLater(() -> {
+            easel.createAndShowGui();
+        });
     }
 }
