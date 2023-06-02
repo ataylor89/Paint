@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 
 /**
@@ -36,6 +36,6 @@ public class FitImageToCanvas implements Transform {
         gb.drawImage(oldImage.getBackground(), 0, 0, null);
         gf.drawImage(oldImage.getForeground(), 0, 0, null);
         settings.setLayeredImage(newImage);
-        settings.notify("imageChanged");
+        app.notify("imageChanged");
     }
 }

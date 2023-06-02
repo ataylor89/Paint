@@ -2,8 +2,8 @@ package paint;
 
 import java.awt.Color;
 import paint.gui.Easel;
-import paint.gui.LayeredImage;
-import paint.listener.SettingChangeListener;
+import paint.image.LayeredImage;
+import paint.listener.AppNotifications;
 
 /**
  *
@@ -12,9 +12,14 @@ import paint.listener.SettingChangeListener;
 public class App {
     
     private Settings settings;
+    private AppNotifications notifications;
     private Easel easel;
     
     public App() {}
+    
+    public void notify(String signal) {
+        notifications.forward(signal);
+    }
     
     public void setSettings(Settings settings) {
         this.settings = settings;
@@ -22,6 +27,14 @@ public class App {
     
     public Settings getSettings() {
         return settings;
+    }
+    
+    public void setNotifications(AppNotifications notifications) {
+        this.notifications = notifications;
+    }
+
+    public AppNotifications getNotifications() {
+        return notifications;
     }
     
     public void setEasel(Easel easel) {
@@ -32,22 +45,32 @@ public class App {
         return easel;
     }
     
+    public void restoreDefaults() {
+        settings = getDefaults();
+    }
+    
+    public Settings getDefaults() {
+        Settings defaults = new Settings();
+        defaults.setBrushSize(20);
+        defaults.setPaintColor(new Color(0,153,255));
+        defaults.setMode(Settings.GLIDE);
+        defaults.setTool("Brush");
+        defaults.setLayeredImage(new LayeredImage(1200, 725));
+        return defaults;
+    }
+    
     public static void main(String[] args) {
-        App app = new App(); 
+        App app = new App();
         
-        Settings settings = new Settings();
-        app.setSettings(settings);      
+        Settings defaults = app.getDefaults();
+        app.setSettings(defaults);
+        
+        AppNotifications notifications = new AppNotifications(app);
+        app.setNotifications(notifications);
         
         Easel easel = new Easel(app);
         app.setEasel(easel);
         
-        settings.setBrushSize(20);
-        settings.setPaintColor(new Color(0,153,255));
-        settings.setMode(Settings.GLIDE);
-        settings.setTool(easel.getToolbox().get("Brush"));
-        settings.setLayeredImage(new LayeredImage(1200, 725));
-        settings.setListener(new SettingChangeListener(app));
-              
         easel.createAndShowGui();
     }
 }

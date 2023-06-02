@@ -8,18 +8,24 @@ import paint.App;
  */
 public class Toolbox {
     
-    private App app;
+    private Brush brush;
+    private Pen pen;
+    private Eraser eraser;
+    private Marquee marquee;
     
     public Toolbox(App app) {
-        this.app = app;
+        brush = new Brush(app);
+        pen = new Pen(app);
+        eraser = new Eraser(app);
+        marquee = new Marquee(app);
     }
 
     public Tool get(String name) {
         return switch (name.toLowerCase()) {
-            case "brush" -> new Brush(app);
-            case "pen" -> new Pen(app);
-            case "eraser" -> new Eraser(app);
-            case "marquee" -> new Marquee(app);
+            case "brush" -> brush;
+            case "pen" -> pen;
+            case "eraser" -> eraser;
+            case "marquee" -> marquee;
             default -> null;
         };
     }

@@ -46,7 +46,7 @@ public class Marquee extends Tool {
             int height = Math.abs(y1 - y2);
             cg.drawRect(x, y, width, height);
             settings.setSelection(new Selection(x, y, width, height));
-            settings.notify("selectionChanged");
+            app.notify("selectionChanged");
         });
     }
     

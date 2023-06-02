@@ -1,10 +1,10 @@
 package paint.gui;
 
+import paint.image.LayeredImage;
 import java.awt.BorderLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import paint.App;
 import paint.Settings;
 import paint.listener.WindowListener;
@@ -34,7 +34,6 @@ public class Easel extends JFrame {
         menuBar = new MenuBar(app);
         setJMenuBar(menuBar);
         fileChooser = new JFileChooser(System.getProperty("user.dir"));
-        fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         toolbar = new ToolBar(app);

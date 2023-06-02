@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import paint.App;
 import paint.gui.Canvas;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
 
@@ -35,8 +35,8 @@ public class Brush extends Tool {
         Settings settings = app.getSettings();
         Easel easel = app.getEasel();
         Canvas canvas = easel.getCanvas();
-        LayeredImage layers = settings.getLayeredImage();
-        BufferedImage image = layers.getForeground();
+        LayeredImage image = settings.getLayeredImage();
+        BufferedImage foreground = image.getForeground();
         int x = event.getX();
         int y = event.getY();
         Color color = settings.getPaintColor();
@@ -46,7 +46,7 @@ public class Brush extends Tool {
         cg.setColor(color);
         cg.drawOval(x, y, diameter, diameter);
         cg.fillOval(x, y, diameter, diameter);
-        Graphics2D ig = (Graphics2D) image.getGraphics();
+        Graphics2D ig = (Graphics2D) foreground.getGraphics();
         ig.setRenderingHints(renderingHints);
         ig.setColor(color);
         ig.drawOval(x, y, diameter, diameter);

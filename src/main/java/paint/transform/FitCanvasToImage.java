@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 
 /**

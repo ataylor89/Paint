@@ -1,15 +1,18 @@
 package paint.gui;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 /**
  *
  * @author andrewtaylor
  */
-public class Selection {
+public class Selection implements Serializable {
     
     private Point coordinate;
     private int width, height;
+    
+    private final static long serialVersionUID = 1L;
     
     public Selection() {}
     

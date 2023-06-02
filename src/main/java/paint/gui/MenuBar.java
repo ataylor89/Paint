@@ -15,7 +15,7 @@ public class MenuBar extends JMenuBar {
     private App app;
     private MenuListener listener;
     private JMenu fileMenu;
-    private JMenuItem clear, open, save, saveAs, exit;
+    private JMenuItem clear, open, save, saveAs, export, exit;
     private JMenu transformMenu;
     private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection, setBackgroundColor;
     
@@ -44,6 +44,10 @@ public class MenuBar extends JMenuBar {
         saveAs.setActionCommand("saveAs");
         saveAs.addActionListener(listener);
         fileMenu.add(saveAs);
+        export = new JMenuItem("Export");
+        export.setActionCommand("export");
+        export.addActionListener(listener);
+        fileMenu.add(export);
         exit = new JMenuItem("Exit");
         exit.setActionCommand("exit");
         exit.addActionListener(listener);

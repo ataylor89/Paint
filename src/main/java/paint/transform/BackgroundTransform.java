@@ -7,7 +7,7 @@ import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.Easel;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 
 /**
  *
@@ -33,7 +33,7 @@ public class BackgroundTransform implements Transform {
         g.setColor(color);
         g.fillRect(0, 0, background.getWidth(), background.getHeight());
         canvas.setBackground(color);
-        settings.notify("imageChanged");
+        app.notify("imageChanged");
     }
     
 }

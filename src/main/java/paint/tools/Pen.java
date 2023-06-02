@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import paint.App;
 import paint.gui.Canvas;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
 
@@ -32,12 +32,12 @@ public class Pen extends Tool {
         int y2 = event.getY();
         Easel easel = app.getEasel();
         Canvas canvas = easel.getCanvas();
-        LayeredImage layers = settings.getLayeredImage();
-        BufferedImage image = layers.getForeground();
+        LayeredImage image = settings.getLayeredImage();
+        BufferedImage foreground = image.getForeground();
         Graphics cg = canvas.getGraphics();
         cg.setColor(paintColor);
         cg.drawLine(x1, y1, x2, y2);
-        Graphics ig = image.getGraphics();
+        Graphics ig = foreground.getGraphics();
         ig.setColor(paintColor);
         ig.drawLine(x1, y1, x2, y2);
         lastEvent = event;

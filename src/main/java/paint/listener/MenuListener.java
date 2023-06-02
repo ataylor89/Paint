@@ -6,14 +6,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import paint.App;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
 import paint.transform.BackgroundTransform;
@@ -40,26 +45,27 @@ public class MenuListener implements ActionListener {
         String actionCommand = menuItem.getActionCommand();
         switch (actionCommand.toLowerCase()) {
             case "clear" -> {
-                Settings settings = app.getSettings();
+                Settings settings = app.getSettings();                
+                settings.setFile(null);
                 ClearTransform transform = new ClearTransform(app);
                 transform.apply();
-                settings.setFile(null);
-                settings.notify("fileChanged");
+                app.restoreDefaults();
+                app.notify("fileChanged");
             }
             case "open" -> {
-                Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 JFileChooser fileChooser = easel.getFileChooser();
+                fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
                 if (fileChooser.showOpenDialog(easel) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    try {
-                        BufferedImage image = ImageIO.read(file);
-                        settings.setLayeredImage(new LayeredImage(image));
-                        settings.setFile(file);
+                    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                        Settings settings = (Settings) in.readObject();
+                        app.setSettings(settings);
                         FitCanvasToImage transform = new FitCanvasToImage(app);
                         transform.apply();
-                        settings.notify("fileChanged");
-                    } catch (IOException ex) {
+                        settings.setFile(file);
+                        app.notify("fileChanged");
+                    } catch (IOException | ClassNotFoundException ex) {
                         System.err.println(ex);
                     }
                 }
@@ -67,26 +73,41 @@ public class MenuListener implements ActionListener {
             case "save" -> {
                 Settings settings = app.getSettings();
                 File file = settings.getFile();
-                LayeredImage layers = settings.getLayeredImage();       
-                BufferedImage image = layers.merge();
-                try {
-                    ImageIO.write(image, "png", file);
+                try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                    out.writeObject(settings);
+                    out.flush();
                 } catch (IOException ex) {
                     System.err.println(ex);
-                }
+                }       
             }
             case "saveas" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 JFileChooser fileChooser = easel.getFileChooser();
+                fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
                 if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
-                    LayeredImage layers = settings.getLayeredImage();
-                    BufferedImage image = layers.merge();
-                    try {
-                        ImageIO.write(image, "png", file);
+                    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                        out.writeObject(settings);
+                        out.flush();
                         settings.setFile(file);
-                        settings.notify("fileChanged");
+                        app.notify("fileChanged");
+                    } catch (IOException ex) {
+                        System.err.println(ex);
+                    }                  
+                }
+            }
+            case "export" -> {
+                Settings settings = app.getSettings();
+                Easel easel = app.getEasel();
+                JFileChooser fileChooser = easel.getFileChooser();
+                fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
+                if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    LayeredImage image = settings.getLayeredImage();
+                    BufferedImage composite = image.merge();
+                    try {
+                        ImageIO.write(composite, "png", file);
                     } catch (IOException ex) {
                         System.err.println(ex);
                     }

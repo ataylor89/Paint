@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
 import paint.App;
 import paint.Settings;
+import paint.gui.Easel;
 import paint.tools.Tool;
 
 /**
@@ -21,21 +22,27 @@ public class CanvasListener extends MouseInputAdapter {
     @Override
     public void mousePressed(MouseEvent event) {
         Settings settings = app.getSettings();
-        Tool tool = settings.getTool();
+        Easel easel = app.getEasel();
+        String toolName = settings.getTool();
+        Tool tool = easel.getToolbox().get(toolName);
         tool.press(event);
     }
     
     @Override
     public void mouseMoved(MouseEvent event) {
         Settings settings = app.getSettings();
-        Tool tool = settings.getTool();
+        Easel easel = app.getEasel();
+        String toolName = settings.getTool();
+        Tool tool = easel.getToolbox().get(toolName);
         tool.move(event);
     }
     
     @Override
     public void mouseDragged(MouseEvent event) {
         Settings settings = app.getSettings();
-        Tool tool = settings.getTool();
+        Easel easel = app.getEasel();
+        String toolName = settings.getTool();
+        Tool tool = easel.getToolbox().get(toolName);
         tool.drag(event);
     }
 }

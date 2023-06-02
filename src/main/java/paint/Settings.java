@@ -2,36 +2,31 @@ package paint;
 
 import java.awt.Color;
 import java.io.File;
-import paint.gui.LayeredImage;
+import java.io.Serializable;
+import paint.image.LayeredImage;
 import paint.gui.Selection;
-import paint.listener.SettingChangeListener;
-import paint.tools.Tool;
 
 /**
  *
  * @author andrewtaylor
  */
-public class Settings {
-    
-    private SettingChangeListener listener;
+public class Settings implements Serializable {
     
     private int brushSize;
     private Color paintColor;
     private Color backgroundColor;
     private int mode;
-    private Tool tool;
+    private String tool;
     private File file;
     private LayeredImage layeredImage;
     private Selection selection;
     
     public static final int GLIDE = 0;
     public static final int DRAG = 1;
-        
-    public Settings() {}
     
-    public void notify(String signal) {
-        listener.notify(signal);
-    }
+    private static final long serialVersionUID = 1L;    
+    
+    public Settings() {}
     
     public void setBrushSize(int brushSize) {
         this.brushSize = brushSize;
@@ -65,11 +60,11 @@ public class Settings {
         return mode;
     }
     
-    public void setTool(Tool tool) {
+    public void setTool(String tool) {
         this.tool = tool;
     }
     
-    public Tool getTool() {
+    public String getTool() {
         return tool;
     }
 
@@ -95,13 +90,5 @@ public class Settings {
     
     public Selection getSelection() {
         return selection;
-    }
-    
-    public void setListener(SettingChangeListener listener) {
-        this.listener = listener;
-    }
-    
-    public SettingChangeListener getListener() {
-        return listener;
     }
 }

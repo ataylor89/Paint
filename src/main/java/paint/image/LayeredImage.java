@@ -1,16 +1,23 @@
-package paint.gui;
+package paint.image;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author andrewtaylor
  */
-public class LayeredImage {
+public class LayeredImage implements Serializable {
     
-    private int width, height;
-    private BufferedImage background, foreground;
+    private int width, height;   
+    private transient BufferedImage background, foreground;
+    private static final long serialVersionUID = 1L;
+    
+    public LayeredImage() {}
     
     public LayeredImage(int width, int height) {
         this.width = width;
@@ -28,6 +35,31 @@ public class LayeredImage {
         foreground = image;
         background.createGraphics();
         foreground.createGraphics();
+    }
+    
+    private void writeObject(ObjectOutputStream out) {
+        try {
+            out.defaultWriteObject();
+            byte[] buffer1 = ImageOps.serialize(background);
+            byte[] buffer2 = ImageOps.serialize(foreground);
+            out.writeObject(buffer1);
+            out.writeObject(buffer2);
+            out.flush();
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
+    }
+    
+    private void readObject(ObjectInputStream in) {
+        try {
+            in.defaultReadObject();
+            byte[] buffer1 = (byte[]) in.readObject();
+            byte[] buffer2 = (byte[]) in.readObject();
+            background = ImageOps.deserialize(buffer1, width, height);
+            foreground = ImageOps.deserialize(buffer2, width, height);
+        } catch (IOException | ClassNotFoundException ex) {
+            System.err.println(ex);
+        }
     }
     
     public BufferedImage merge() {

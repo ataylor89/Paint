@@ -8,20 +8,21 @@ import paint.gui.Easel;
 import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.Selection;
+import paint.gui.ToolBar;
 
 /**
  *
  * @author andrewtaylor
  */
-public class SettingChangeListener {
+public class AppNotifications {
     
     private App app;
     
-    public SettingChangeListener(App app) {
+    public AppNotifications(App app) {
         this.app = app;
     }
     
-    public void notify(String signal) {
+    public void forward(String signal) {
         switch (signal.toLowerCase()) {
             case "filechanged" -> {
                 Settings settings = app.getSettings();
@@ -33,6 +34,8 @@ public class SettingChangeListener {
                 Canvas canvas = easel.getCanvas();
                 canvas.repaint();
                 easel.refreshTitle();
+                ToolBar toolBar = easel.getToolBar();
+                toolBar.refresh();
             }
             case "imagechanged" -> {
                 Easel easel = app.getEasel();

@@ -16,7 +16,6 @@ import paint.Settings;
 import paint.gui.ColorSample;
 import paint.gui.Easel;
 import paint.gui.ToolBar;
-import paint.tools.Tool;
 
 /**
  *
@@ -58,10 +57,9 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
                 Easel easel = app.getEasel();
                 ToolBar toolBar = easel.getToolBar();
                 JComboBox toolCombo = toolBar.getToolCombo();
-                String value = (String) toolCombo.getSelectedItem();
-                Tool tool = easel.getToolbox().get(value);
-                settings.setTool(tool);
-                settings.notify("toolChanged");
+                String toolName = (String) toolCombo.getSelectedItem();
+                settings.setTool(toolName);
+                app.notify("toolChanged");
             }
         }
     }

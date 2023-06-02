@@ -66,6 +66,14 @@ public class ToolBar extends JPanel {
         glideCheckBox.addItemListener(listener);
         add(glideCheckBox);
     }
+    
+    public void refresh() {
+        Settings settings = app.getSettings();
+        sizeSpinner.setValue(settings.getBrushSize());
+        colorButton.setColor(settings.getPaintColor());
+        toolCombo.setSelectedItem(settings.getTool());
+        glideCheckBox.setSelected(settings.getMode() == Settings.GLIDE);
+    }
 
     public JLabel getSizeLabel() {
         return sizeLabel;

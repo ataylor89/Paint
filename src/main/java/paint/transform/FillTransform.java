@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.SwingUtilities;
 import paint.App;
 import paint.gui.Canvas;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 import paint.gui.Easel;
 import paint.Settings;
 import paint.gui.Selection;
@@ -47,7 +47,7 @@ public class FillTransform implements Transform {
             ig.setColor(color);
             ig.fillRect(x, y, width, height);
             settings.setSelection(null);
-            settings.notify("selectionChanged");
+            app.notify("selectionChanged");
         });
     }
 }

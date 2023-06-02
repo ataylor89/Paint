@@ -1,5 +1,6 @@
 package paint.gui;
 
+import paint.image.LayeredImage;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -30,8 +31,9 @@ public class Canvas extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Settings settings = app.getSettings();
-        LayeredImage layers = settings.getLayeredImage();
-        BufferedImage composite = layers.merge();
+        setBackground(settings.getBackgroundColor());
+        LayeredImage image = settings.getLayeredImage();
+        BufferedImage composite = image.merge();
         g.drawImage(composite, 0, 0, null);
     }
 }

@@ -4,7 +4,7 @@ import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.Easel;
-import paint.gui.LayeredImage;
+import paint.image.LayeredImage;
 
 /**
  *
@@ -28,6 +28,5 @@ public class ClearTransform implements Transform {
         settings.setLayeredImage(newImage);
         settings.setBackgroundColor(null);
         canvas.setBackground(null);
-        settings.notify("imageChanged");
     }
 }
