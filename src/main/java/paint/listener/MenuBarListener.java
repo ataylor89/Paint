@@ -139,7 +139,6 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                 Color color = JColorChooser.showDialog(easel, "Choose a color", initial);
                 if (color != null) {
                     settings.setBackgroundColor(color);
-                    easel.getCanvas().setBackground(color);
                     new BackgroundTransform(app).apply();
                     app.notify("changedBackgroundColor");
                 }

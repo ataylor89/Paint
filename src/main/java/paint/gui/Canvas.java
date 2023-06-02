@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import paint.App;
-import paint.image.LayeredImage;
 import paint.listener.CanvasListener;
 
 /**
@@ -29,8 +28,9 @@ public class Canvas extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        LayeredImage image = app.getSettings().getLayeredImage();
-        BufferedImage composite = image.merge();
+        Canvas canvas = app.getEasel().getCanvas();
+        canvas.setBackground(app.getSettings().getBackgroundColor());
+        BufferedImage composite = app.getSettings().getLayeredImage().merge();
         g.drawImage(composite, 0, 0, null);
     }
 }
