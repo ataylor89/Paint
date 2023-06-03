@@ -1,10 +1,10 @@
-package paint.listener;
+package paint.listeners;
 
 import paint.App;
 import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.Easel;
-import paint.transform.FitCanvasToImage;
+import paint.menuactions.FitCanvasToImage;
 
 /**
  *
@@ -21,7 +21,7 @@ public class AppNotifications {
     public void forward(String event) {
         switch (event) {
             case "restoredDefaults", "openedFile" -> {
-                new FitCanvasToImage(app).apply();
+                new FitCanvasToImage(app).execute();
                 Easel easel = app.getEasel();
                 easel.refreshTitle();
                 easel.getToolBar().refresh();

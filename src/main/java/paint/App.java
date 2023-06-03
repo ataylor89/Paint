@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.SwingUtilities;
 import paint.gui.Easel;
 import paint.image.LayeredImage;
-import paint.listener.AppNotifications;
+import paint.listeners.AppNotifications;
 
 /**
  *

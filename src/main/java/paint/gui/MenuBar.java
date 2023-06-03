@@ -5,7 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import paint.App;
 import paint.Settings;
-import paint.listener.MenuBarListener;
+import paint.listeners.MenuBarListener;
 
 /**
  *

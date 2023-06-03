@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import paint.App;
-import paint.listener.CanvasListener;
+import paint.listeners.CanvasListener;
 
 /**
  *

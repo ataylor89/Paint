@@ -11,7 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import paint.App;
 import paint.Settings;
-import paint.listener.ToolBarListener;
+import paint.listeners.ToolBarListener;
 
 /**
  *

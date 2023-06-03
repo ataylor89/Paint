@@ -1,4 +1,4 @@
-package paint.transform;
+package paint.menuactions;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,16 +12,15 @@ import paint.tools.Selection;
  *
  * @author andrewtaylor
  */
-public class FillTransform implements Transform {
+public class FillSelection {
     
     private App app;
     
-    public FillTransform(App app) {
+    public FillSelection(App app) {
         this.app = app;
     }
     
-    @Override
-    public void apply() {
+    public void execute() {
         Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {

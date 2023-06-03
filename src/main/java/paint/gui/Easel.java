@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import paint.App;
 import paint.Settings;
-import paint.listener.WindowListener;
+import paint.listeners.WindowListener;
 import paint.tools.Toolbox;
 
 /**

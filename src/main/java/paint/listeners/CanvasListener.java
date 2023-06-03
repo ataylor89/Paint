@@ -1,4 +1,4 @@
-package paint.listener;
+package paint.listeners;
 
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;

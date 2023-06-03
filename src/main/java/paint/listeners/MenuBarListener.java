@@ -1,4 +1,4 @@
-package paint.listener;
+package paint.listeners;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -22,10 +22,10 @@ import paint.App;
 import paint.Settings;
 import paint.gui.Easel;
 import paint.gui.MenuBar;
-import paint.transform.BackgroundTransform;
-import paint.transform.FillTransform;
-import paint.transform.FitCanvasToImage;
-import paint.transform.FitImageToCanvas;
+import paint.menuactions.SetBackground;
+import paint.menuactions.FillSelection;
+import paint.menuactions.FitCanvasToImage;
+import paint.menuactions.FitImageToCanvas;
 import paint.util.MenuAdapter;
 
 /**
@@ -116,7 +116,7 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                 System.exit(0);
             }
             case "fitCanvasToImage" -> {
-                new FitCanvasToImage(app).apply();
+                new FitCanvasToImage(app).execute();
                 app.notify("resizedCanvas");
             }
             case "fitImageToCanvas" -> {
@@ -125,12 +125,12 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                 String title = "Resize image";
                 int optionType = JOptionPane.YES_NO_OPTION;
                 if (JOptionPane.showConfirmDialog(easel, message, title, optionType) == JOptionPane.YES_OPTION) {
-                    new FitImageToCanvas(app).apply();
+                    new FitImageToCanvas(app).execute();
                     app.notify("resizedImage");
                 }
             }
             case "fillSelection" -> {             
-                new FillTransform(app).apply();
+                new FillSelection(app).execute();
             }
             case "setBackgroundColor" -> {
                 Settings settings = app.getSettings();
@@ -139,10 +139,11 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                 Color color = JColorChooser.showDialog(easel, "Choose a color", initial);
                 if (color != null) {
                     settings.setBackgroundColor(color);
-                    new BackgroundTransform(app).apply();
+                    new SetBackground(app).execute();
                     app.notify("changedBackgroundColor");
                 }
             }
+
         }
     }
     

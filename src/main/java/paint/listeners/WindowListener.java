@@ -1,4 +1,4 @@
-package paint.listener;
+package paint.listeners;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

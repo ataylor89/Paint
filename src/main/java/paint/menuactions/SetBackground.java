@@ -1,4 +1,4 @@
-package paint.transform;
+package paint.menuactions;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,16 +10,15 @@ import paint.Settings;
  *
  * @author andrewtaylor
  */
-public class BackgroundTransform implements Transform {
+public class SetBackground {
 
     private App app;
     
-    public BackgroundTransform(App app) {
+    public SetBackground(App app) {
         this.app = app;
     }
     
-    @Override
-    public void apply() {
+    public void execute() {
         Settings settings = app.getSettings();
         Color color = settings.getBackgroundColor();
         BufferedImage background = settings.getLayeredImage().getBackground();

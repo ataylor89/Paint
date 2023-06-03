@@ -1,4 +1,4 @@
-package paint.transform;
+package paint.menuactions;
 
 import java.awt.Graphics;
 import paint.App;
@@ -10,7 +10,7 @@ import paint.image.LayeredImage;
  *
  * @author andrewtaylor
  */
-public class FitImageToCanvas implements Transform {
+public class FitImageToCanvas {
     
     private App app;
     
@@ -18,8 +18,7 @@ public class FitImageToCanvas implements Transform {
         this.app = app;
     }
     
-    @Override
-    public void apply() {
+    public void execute() {
         Settings settings = app.getSettings();
         LayeredImage oldImage = settings.getLayeredImage();
         Canvas canvas = app.getEasel().getCanvas();
