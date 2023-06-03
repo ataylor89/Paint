@@ -83,20 +83,4 @@ public class MenuBar extends JMenuBar {
         save.setEnabled(settings.getFile() != null);
         fillSelection.setEnabled(settings.hasMarquee());
     }
-    
-    public void setSave(JMenuItem save) {
-        this.save = save;
-    }
-
-    public JMenuItem getSave() {
-        return save;
-    }
-    
-    public void setFillSelection(JMenuItem fillSelection) {
-        this.fillSelection = fillSelection;
-    }
-
-    public JMenuItem getFillSelection() {
-        return fillSelection;
-    }
 }
