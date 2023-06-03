@@ -17,7 +17,7 @@ import paint.gui.Canvas;
 public class Marquee extends Tool {
 
     private App app;
-    private MouseEvent beginning, end;
+    private MouseEvent origin, boundary;
     private final Stroke stroke;
     
     public Marquee(App app) {
@@ -29,10 +29,10 @@ public class Marquee extends Tool {
         Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
-            int x1 = beginning.getX();
-            int y1 = beginning.getY();
-            int x2 = end.getX();
-            int y2 = end.getY();
+            int x1 = origin.getX();
+            int y1 = origin.getY();
+            int x2 = boundary.getX();
+            int y2 = boundary.getY();
             int x = Math.min(x1, x2);
             int y = Math.min(y1, y2);
             int width = Math.abs(x1 - x2);
@@ -45,11 +45,11 @@ public class Marquee extends Tool {
     }
     
     public Selection calculate() {
-        if (beginning != null && end != null) {
-            int x1 = beginning.getX();
-            int y1 = beginning.getY();
-            int x2 = end.getX();
-            int y2 = end.getY();
+        if (origin != null && boundary != null) {
+            int x1 = origin.getX();
+            int y1 = origin.getY();
+            int x2 = boundary.getX();
+            int y2 = boundary.getY();
             int x = Math.min(x1, x2);
             int y = Math.min(y1, y2);
             int width = Math.abs(x1 - x2);
@@ -66,15 +66,15 @@ public class Marquee extends Tool {
         if (settings.getMode() == Settings.GLIDE) {
             gliding = !gliding;
             if (gliding) {
-                beginning = event;
+                origin = event;
             }
             else {
-                end = event;
+                boundary = event;
                 draw();
             }
         }
         else {
-            beginning = event;
+            origin = event;
         }
     }
    
@@ -83,7 +83,7 @@ public class Marquee extends Tool {
         Settings settings = app.getSettings();
         if (settings.getMode() == Settings.GLIDE) {
             if (gliding) {
-                end = event;
+                boundary = event;
                 draw();
             }
         }
@@ -93,7 +93,7 @@ public class Marquee extends Tool {
     public void drag(MouseEvent event) {
         Settings settings = app.getSettings();
         if (settings.getMode() == Settings.DRAG) {
-            end = event;
+            boundary = event;
             draw();
         }
     }
