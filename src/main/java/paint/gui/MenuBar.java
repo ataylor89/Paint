@@ -53,7 +53,7 @@ public class MenuBar extends JMenuBar {
         exit = new JMenuItem("Exit");
         exit.setActionCommand("exit");
         exit.addActionListener(listener);
-        fileMenu.add(getExit());
+        fileMenu.add(exit);
         add(fileMenu);
         transformMenu = new JMenu("Transform");
         transformMenu.addMenuListener(listener);
@@ -83,84 +83,20 @@ public class MenuBar extends JMenuBar {
         save.setEnabled(settings.getFile() != null);
         fillSelection.setEnabled(settings.hasMarquee());
     }
-
-    public JMenu getFileMenu() {
-        return fileMenu;
-    }
-
-    public void setFileMenu(JMenu fileMenu) {
-        this.fileMenu = fileMenu;
-    }
-
-    public JMenuItem getClear() {
-        return clear;
-    }
-
-    public void setClear(JMenuItem clear) {
-        this.clear = clear;
-    }
-
-    public JMenuItem getOpen() {
-        return open;
-    }
-
-    public void setOpen(JMenuItem open) {
-        this.open = open;
+    
+    public void setSave(JMenuItem save) {
+        this.save = save;
     }
 
     public JMenuItem getSave() {
         return save;
     }
-
-    public void setSave(JMenuItem save) {
-        this.save = save;
-    }
-
-    public JMenuItem getSaveAs() {
-        return saveAs;
-    }
-
-    public void setSaveAs(JMenuItem saveAs) {
-        this.saveAs = saveAs;
-    }
-
-    public JMenuItem getExit() {
-        return exit;
-    }
-
-    public void setExit(JMenuItem exit) {
-        this.exit = exit;
-    }
-
-    public JMenu getTransformMenu() {
-        return transformMenu;
-    }
-
-    public void setTransformMenu(JMenu transformMenu) {
-        this.transformMenu = transformMenu;
-    }
-
-    public JMenuItem getFitCanvasToImage() {
-        return fitCanvasToImage;
-    }
-
-    public void setFitCanvasToImage(JMenuItem fitCanvasToImage) {
-        this.fitCanvasToImage = fitCanvasToImage;
-    }
-
-    public JMenuItem getFitImageToCanvas() {
-        return fitImageToCanvas;
-    }
-
-    public void setFitImageToCanvas(JMenuItem fitImageToCanvas) {
-        this.fitImageToCanvas = fitImageToCanvas;
+    
+    public void setFillSelection(JMenuItem fillSelection) {
+        this.fillSelection = fillSelection;
     }
 
     public JMenuItem getFillSelection() {
         return fillSelection;
-    }
-
-    public void setFillSelection(JMenuItem fillSelection) {
-        this.fillSelection = fillSelection;
     }
 }
