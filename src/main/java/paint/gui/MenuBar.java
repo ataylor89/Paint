@@ -16,7 +16,7 @@ public class MenuBar extends JMenuBar {
     private App app;
     private MenuBarListener listener;
     private JMenu fileMenu;
-    private JMenuItem clear, open, save, saveAs, export, exit;
+    private JMenuItem newFile, openFile, saveFile, saveFileAs, export, exit;
     private JMenu transformMenu;
     private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection, setBackgroundColor;
     
@@ -29,29 +29,29 @@ public class MenuBar extends JMenuBar {
     
     public void refresh() {
         Settings settings = app.getSettings();
-        save.setEnabled(settings.getFile() != null);
+        saveFile.setEnabled(settings.getFile() != null);
         fillSelection.setEnabled(settings.hasMarquee());
     }
     
     private void buildUI() {
         fileMenu = new JMenu("File");
         fileMenu.addMenuListener(listener);
-        clear = new JMenuItem("New");
-        clear.setActionCommand("clear");
-        clear.addActionListener(listener);
-        fileMenu.add(clear);
-        open = new JMenuItem("Open");
-        open.setActionCommand("open");
-        open.addActionListener(listener);
-        fileMenu.add(open);
-        save = new JMenuItem("Save");
-        save.setActionCommand("save");
-        save.addActionListener(listener);
-        fileMenu.add(save);
-        saveAs = new JMenuItem("Save as");
-        saveAs.setActionCommand("saveAs");
-        saveAs.addActionListener(listener);
-        fileMenu.add(saveAs);
+        newFile = new JMenuItem("New");
+        newFile.setActionCommand("newFile");
+        newFile.addActionListener(listener);
+        fileMenu.add(newFile);
+        openFile = new JMenuItem("Open");
+        openFile.setActionCommand("openFile");
+        openFile.addActionListener(listener);
+        fileMenu.add(openFile);
+        saveFile = new JMenuItem("Save");
+        saveFile.setActionCommand("saveFile");
+        saveFile.addActionListener(listener);
+        fileMenu.add(saveFile);
+        saveFileAs = new JMenuItem("Save as");
+        saveFileAs.setActionCommand("saveFileAs");
+        saveFileAs.addActionListener(listener);
+        fileMenu.add(saveFileAs);
         export = new JMenuItem("Export");
         export.setActionCommand("export");
         export.addActionListener(listener);

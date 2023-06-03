@@ -51,11 +51,11 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
         JMenuItem menuItem = (JMenuItem) e.getSource();
         String actionCommand = menuItem.getActionCommand();
         switch (actionCommand) {
-            case "clear" -> {               
+            case "newFile" -> {
                 app.restoreDefaults();
                 app.notify("restoredDefaults");
             }
-            case "open" -> {
+            case "openFile" -> {
                 Easel easel = app.getEasel();
                 JFileChooser fileChooser = easel.getFileChooser();
                 fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
@@ -69,7 +69,7 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                     }
                 }
             }
-            case "save" -> {
+            case "saveFile" -> {
                 Settings settings = app.getSettings();
                 File file = settings.getFile();
                 try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
@@ -79,7 +79,7 @@ public class MenuBarListener extends MenuAdapter implements ActionListener {
                     System.err.println(ex);
                 }       
             }
-            case "saveAs" -> {
+            case "saveFileAs" -> {
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 JFileChooser fileChooser = easel.getFileChooser();
