@@ -27,6 +27,12 @@ public class MenuBar extends JMenuBar {
         buildUI();
     }
     
+    public void refresh() {
+        Settings settings = app.getSettings();
+        save.setEnabled(settings.getFile() != null);
+        fillSelection.setEnabled(settings.hasMarquee());
+    }
+    
     private void buildUI() {
         fileMenu = new JMenu("File");
         fileMenu.addMenuListener(listener);
@@ -76,11 +82,5 @@ public class MenuBar extends JMenuBar {
         setBackgroundColor.addActionListener(listener);
         transformMenu.add(setBackgroundColor);
         add(transformMenu);
-    }
-    
-    public void refresh() {
-        Settings settings = app.getSettings();
-        save.setEnabled(settings.getFile() != null);
-        fillSelection.setEnabled(settings.hasMarquee());
     }
 }
