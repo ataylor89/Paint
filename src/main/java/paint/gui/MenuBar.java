@@ -6,6 +6,16 @@ import javax.swing.JMenuItem;
 import paint.App;
 import paint.Settings;
 import paint.listeners.MenuBarListener;
+import paint.menuactions.Exit;
+import paint.menuactions.Export;
+import paint.menuactions.FillSelection;
+import paint.menuactions.FitCanvasToImage;
+import paint.menuactions.FitImageToCanvas;
+import paint.menuactions.NewFile;
+import paint.menuactions.OpenFile;
+import paint.menuactions.SaveFile;
+import paint.menuactions.SaveFileAs;
+import paint.menuactions.SetBackground;
 
 /**
  *
@@ -23,8 +33,9 @@ public class MenuBar extends JMenuBar {
     public MenuBar(App app) {
         super();
         this.app = app;
-        this.listener = new MenuBarListener(app);
-        buildUI();
+        listener = new MenuBarListener(app);
+        createFileMenu();
+        createTransformMenu();
     }
     
     public void refresh() {
@@ -33,53 +44,36 @@ public class MenuBar extends JMenuBar {
         fillSelection.setEnabled(settings.hasMarquee());
     }
     
-    private void buildUI() {
+    private void createFileMenu() {
         fileMenu = new JMenu("File");
         fileMenu.addMenuListener(listener);
-        newFile = new JMenuItem("New");
-        newFile.setActionCommand("newFile");
-        newFile.addActionListener(listener);
+        newFile = new JMenuItem(new NewFile(app));
+        openFile = new JMenuItem(new OpenFile(app));
+        saveFile = new JMenuItem(new SaveFile(app));
+        saveFile.setEnabled(false);
+        saveFileAs = new JMenuItem(new SaveFileAs(app));
+        export = new JMenuItem(new Export(app));
+        exit = new JMenuItem(new Exit(app));
         fileMenu.add(newFile);
-        openFile = new JMenuItem("Open");
-        openFile.setActionCommand("openFile");
-        openFile.addActionListener(listener);
         fileMenu.add(openFile);
-        saveFile = new JMenuItem("Save");
-        saveFile.setActionCommand("saveFile");
-        saveFile.addActionListener(listener);
         fileMenu.add(saveFile);
-        saveFileAs = new JMenuItem("Save as");
-        saveFileAs.setActionCommand("saveFileAs");
-        saveFileAs.addActionListener(listener);
         fileMenu.add(saveFileAs);
-        export = new JMenuItem("Export");
-        export.setActionCommand("export");
-        export.addActionListener(listener);
         fileMenu.add(export);
-        exit = new JMenuItem("Exit");
-        exit.setActionCommand("exit");
-        exit.addActionListener(listener);
         fileMenu.add(exit);
-        add(fileMenu);
+        add(fileMenu); 
+    }
+    
+    private void createTransformMenu() {
         transformMenu = new JMenu("Transform");
         transformMenu.addMenuListener(listener);
-        fitCanvasToImage = new JMenuItem("Fit canvas to image");
-        fitCanvasToImage.setActionCommand("fitCanvasToImage");
-        fitCanvasToImage.addActionListener(listener);
-        transformMenu.add(fitCanvasToImage);
-        fitImageToCanvas = new JMenuItem("Fit image to canvas");
-        fitImageToCanvas.setActionCommand("fitImageToCanvas");
-        fitImageToCanvas.addActionListener(listener);
-        transformMenu.add(fitImageToCanvas);
-        fillSelection = new JMenuItem("Fill selection");
-        fillSelection.setActionCommand("fillSelection");
+        fitCanvasToImage = new JMenuItem(new FitCanvasToImage(app));
+        fitImageToCanvas = new JMenuItem(new FitImageToCanvas(app));
+        fillSelection = new JMenuItem(new FillSelection(app));
         fillSelection.setEnabled(false);
-        fillSelection.addActionListener(listener);
+        setBackgroundColor = new JMenuItem(new SetBackground(app));
+        transformMenu.add(fitCanvasToImage);
+        transformMenu.add(fitImageToCanvas);
         transformMenu.add(fillSelection);
-        setBackgroundColor = new JMenuItem("Set background color");
-        setBackgroundColor.setActionCommand("setBackgroundColor");
-        setBackgroundColor.setEnabled(true);
-        setBackgroundColor.addActionListener(listener);
         transformMenu.add(setBackgroundColor);
         add(transformMenu);
     }

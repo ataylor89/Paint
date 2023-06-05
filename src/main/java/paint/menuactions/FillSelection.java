@@ -2,6 +2,8 @@ package paint.menuactions;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
 import javax.swing.SwingUtilities;
 import paint.App;
 import paint.gui.Canvas;
@@ -12,15 +14,17 @@ import paint.tools.Selection;
  *
  * @author andrewtaylor
  */
-public class FillSelection {
+public class FillSelection extends AbstractAction {
     
     private App app;
     
     public FillSelection(App app) {
+        super("Fill selection");
         this.app = app;
     }
     
-    public void execute() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
         Canvas canvas = app.getEasel().getCanvas();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {
