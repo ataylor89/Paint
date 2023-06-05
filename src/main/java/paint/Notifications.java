@@ -1,7 +1,5 @@
-package paint.listeners;
+package paint;
 
-import paint.App;
-import paint.Settings;
 import paint.gui.Canvas;
 import paint.gui.Easel;
 
@@ -9,11 +7,11 @@ import paint.gui.Easel;
  *
  * @author andrewtaylor
  */
-public class AppNotifications {
+public class Notifications {
     
     private App app;
     
-    public AppNotifications(App app) {
+    public Notifications(App app) {
         this.app = app;
     }
     

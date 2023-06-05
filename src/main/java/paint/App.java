@@ -4,7 +4,6 @@ import java.awt.Color;
 import javax.swing.SwingUtilities;
 import paint.gui.Easel;
 import paint.image.LayeredImage;
-import paint.listeners.AppNotifications;
 
 /**
  *
@@ -13,7 +12,7 @@ import paint.listeners.AppNotifications;
 public class App {
     
     private Settings settings;
-    private AppNotifications notifications;
+    private Notifications notifications;
     private Easel easel;
     
     public App() {}
@@ -44,11 +43,11 @@ public class App {
         return settings;
     }
     
-    public void setNotifications(AppNotifications notifications) {
+    public void setNotifications(Notifications notifications) {
         this.notifications = notifications;
     }
 
-    public AppNotifications getNotifications() {
+    public Notifications getNotifications() {
         return notifications;
     }
     
@@ -66,7 +65,7 @@ public class App {
         Settings defaults = app.getDefaults();
         app.setSettings(defaults);
         
-        AppNotifications notifications = new AppNotifications(app);
+        Notifications notifications = new Notifications(app);
         app.setNotifications(notifications);
         
         Easel easel = new Easel(app);
