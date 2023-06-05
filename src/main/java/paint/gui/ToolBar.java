@@ -32,6 +32,15 @@ public class ToolBar extends JPanel {
         buildUI();
     }
     
+    public void refresh() {
+        Settings settings = app.getSettings();
+        sizeSpinner.setValue(settings.getBrushSize());
+        colorButton.setColor(settings.getPaintColor());
+        colorButton.repaint();
+        toolCombo.setSelectedItem(settings.getTool());
+        glideCheckBox.setSelected(settings.getMode() == Settings.GLIDE);
+    }
+    
     private void buildUI() {
         ToolBarListener listener = new ToolBarListener(app);
         Settings settings = app.getSettings();
@@ -64,14 +73,5 @@ public class ToolBar extends JPanel {
         glideCheckBox.setSelected(true);
         glideCheckBox.addItemListener(listener);
         add(glideCheckBox);
-    }
-    
-    public void refresh() {
-        Settings settings = app.getSettings();
-        sizeSpinner.setValue(settings.getBrushSize());
-        colorButton.setColor(settings.getPaintColor());
-        colorButton.repaint();
-        toolCombo.setSelectedItem(settings.getTool());
-        glideCheckBox.setSelected(settings.getMode() == Settings.GLIDE);
     }
 }
