@@ -20,7 +20,6 @@ import paint.listeners.ToolBarListener;
 public class ToolBar extends JPanel {
     
     private App app;
-    private ToolBarListener listener;
     private JLabel sizeLabel, colorLabel, toolLabel, glideLabel;
     private JSpinner sizeSpinner;
     private ColorSample colorButton;
@@ -30,11 +29,11 @@ public class ToolBar extends JPanel {
     public ToolBar(App app) {
         super();
         this.app = app;
-        listener = new ToolBarListener(app);
         buildUI();
     }
     
     private void buildUI() {
+        ToolBarListener listener = new ToolBarListener(app);
         Settings settings = app.getSettings();
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -74,69 +73,5 @@ public class ToolBar extends JPanel {
         colorButton.repaint();
         toolCombo.setSelectedItem(settings.getTool());
         glideCheckBox.setSelected(settings.getMode() == Settings.GLIDE);
-    }
-
-    public JLabel getSizeLabel() {
-        return sizeLabel;
-    }
-
-    public void setSizeLabel(JLabel sizeLabel) {
-        this.sizeLabel = sizeLabel;
-    }
-
-    public JLabel getColorLabel() {
-        return colorLabel;
-    }
-
-    public void setColorLabel(JLabel colorLabel) {
-        this.colorLabel = colorLabel;
-    }
-
-    public JLabel getToolLabel() {
-        return toolLabel;
-    }
-
-    public void setToolLabel(JLabel toolLabel) {
-        this.toolLabel = toolLabel;
-    }
-
-    public JLabel getGlideLabel() {
-        return glideLabel;
-    }
-
-    public void setGlideLabel(JLabel glideLabel) {
-        this.glideLabel = glideLabel;
-    }
-
-    public JSpinner getSizeSpinner() {
-        return sizeSpinner;
-    }
-
-    public void setSizeSpinner(JSpinner sizeSpinner) {
-        this.sizeSpinner = sizeSpinner;
-    }
-
-    public ColorSample getColorButton() {
-        return colorButton;
-    }
-
-    public void setColorButton(ColorSample colorButton) {
-        this.colorButton = colorButton;
-    }
-
-    public JComboBox getToolCombo() {
-        return toolCombo;
-    }
-
-    public void setToolCombo(JComboBox toolCombo) {
-        this.toolCombo = toolCombo;
-    }
-
-    public JCheckBox getGlideCheckBox() {
-        return glideCheckBox;
-    }
-
-    public void setGlideCheckBox(JCheckBox glideCheckBox) {
-        this.glideCheckBox = glideCheckBox;
     }
 }

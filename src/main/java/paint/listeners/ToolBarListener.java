@@ -13,9 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import paint.App;
 import paint.Settings;
-import paint.gui.ColorSample;
 import paint.gui.Easel;
-import paint.gui.ToolBar;
 
 /**
  *
@@ -45,18 +43,14 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
                 Settings settings = app.getSettings();
                 Easel easel = app.getEasel();
                 Color choice = JColorChooser.showDialog(easel, "Chooose a color", settings.getPaintColor());
-                if (choice != null) {                    
-                    ToolBar toolBar = easel.getToolBar();
-                    ColorSample colorButton = toolBar.getColorButton();
-                    colorButton.setColor(choice);
+                if (choice != null) {
                     settings.setPaintColor(choice);
+                    easel.getToolBar().refresh();
                 }
             }
             case "chooseTool" -> {
                 Settings settings = app.getSettings();
-                Easel easel = app.getEasel();
-                ToolBar toolBar = easel.getToolBar();
-                JComboBox toolCombo = toolBar.getToolCombo();
+                JComboBox toolCombo = (JComboBox) e.getSource();
                 String toolName = (String) toolCombo.getSelectedItem();
                 settings.setTool(toolName);
                 app.notify("changedTool");
@@ -67,9 +61,7 @@ public class ToolBarListener implements ActionListener, ChangeListener, ItemList
     @Override
     public void itemStateChanged(ItemEvent e) {
         Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        ToolBar toolBar = easel.getToolBar();
-        JCheckBox glideCheckBox = toolBar.getGlideCheckBox();
+        JCheckBox glideCheckBox = (JCheckBox) e.getSource();
         settings.setMode(glideCheckBox.isSelected() ? Settings.GLIDE : Settings.DRAG);
     }
 }
