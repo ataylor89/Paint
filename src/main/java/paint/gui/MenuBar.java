@@ -32,7 +32,7 @@ public class MenuBar extends JMenuBar {
     public MenuBar(App app) {
         super();
         this.app = app;
-        createMenus();
+        buildUI();
     }
     
     public void refresh() {
@@ -41,7 +41,7 @@ public class MenuBar extends JMenuBar {
         fillSelection.setEnabled(settings.hasMarquee());
     }
     
-    private void createMenus() {
+    private void buildUI() {
         MenuBarListener listener = new MenuBarListener(app);
         fileMenu = new JMenu("File");
         fileMenu.addMenuListener(listener);
