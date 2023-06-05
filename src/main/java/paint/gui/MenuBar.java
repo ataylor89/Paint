@@ -24,7 +24,6 @@ import paint.menuactions.SetBackground;
 public class MenuBar extends JMenuBar {
 
     private App app;
-    private MenuBarListener listener;
     private JMenu fileMenu;
     private JMenuItem newFile, openFile, saveFile, saveFileAs, export, exit;
     private JMenu transformMenu;
@@ -33,9 +32,7 @@ public class MenuBar extends JMenuBar {
     public MenuBar(App app) {
         super();
         this.app = app;
-        listener = new MenuBarListener(app);
-        createFileMenu();
-        createTransformMenu();
+        createMenus();
     }
     
     public void refresh() {
@@ -44,7 +41,8 @@ public class MenuBar extends JMenuBar {
         fillSelection.setEnabled(settings.hasMarquee());
     }
     
-    private void createFileMenu() {
+    private void createMenus() {
+        MenuBarListener listener = new MenuBarListener(app);
         fileMenu = new JMenu("File");
         fileMenu.addMenuListener(listener);
         newFile = new JMenuItem(new NewFile(app));
@@ -61,9 +59,6 @@ public class MenuBar extends JMenuBar {
         fileMenu.add(export);
         fileMenu.add(exit);
         add(fileMenu); 
-    }
-    
-    private void createTransformMenu() {
         transformMenu = new JMenu("Transform");
         transformMenu.addMenuListener(listener);
         fitCanvasToImage = new JMenuItem(new FitCanvasToImage(app));
