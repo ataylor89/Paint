@@ -26,7 +26,7 @@ public class MenuBar extends JMenuBar {
     private App app;
     private JMenu fileMenu;
     private JMenuItem newFile, openFile, saveFile, saveFileAs, export, exit;
-    private JMenu transformMenu;
+    private JMenu editMenu;
     private JMenuItem fitCanvasToImage, fitImageToCanvas, fillSelection, setBackgroundColor;
     
     public MenuBar(App app) {
@@ -59,17 +59,17 @@ public class MenuBar extends JMenuBar {
         fileMenu.add(export);
         fileMenu.add(exit);
         add(fileMenu); 
-        transformMenu = new JMenu("Transform");
-        transformMenu.addMenuListener(listener);
+        editMenu = new JMenu("Edit");
+        editMenu.addMenuListener(listener);
         fitCanvasToImage = new JMenuItem(new FitCanvasToImage(app));
         fitImageToCanvas = new JMenuItem(new FitImageToCanvas(app));
         fillSelection = new JMenuItem(new FillSelection(app));
         fillSelection.setEnabled(false);
         setBackgroundColor = new JMenuItem(new SetBackground(app));
-        transformMenu.add(fitCanvasToImage);
-        transformMenu.add(fitImageToCanvas);
-        transformMenu.add(fillSelection);
-        transformMenu.add(setBackgroundColor);
-        add(transformMenu);
+        editMenu.add(fitCanvasToImage);
+        editMenu.add(fitImageToCanvas);
+        editMenu.add(fillSelection);
+        editMenu.add(setBackgroundColor);
+        add(editMenu);
     }
 }
