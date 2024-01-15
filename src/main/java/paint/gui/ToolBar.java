@@ -62,7 +62,7 @@ public class ToolBar extends JPanel {
         add(colorButton);
         toolLabel = new JLabel("Tool:");
         add(toolLabel);
-        String[] tools = new String[] {"Brush", "Pen", "Eraser", "Marquee"};
+        String[] tools = new String[] {"Brush", "Pen", "Eraser", "Marquee", "Line"};
         toolCombo = new JComboBox(tools);
         toolCombo.setActionCommand("chooseTool");
         toolCombo.addActionListener(listener);
