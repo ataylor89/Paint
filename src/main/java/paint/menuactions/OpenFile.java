@@ -19,17 +19,19 @@ import paint.gui.Easel;
 public class OpenFile extends AbstractAction {
 
     private App app;
-    
+    private Easel easel;
+    private JFileChooser fileChooser;
+
     public OpenFile(App app) {
         super("Open");
         this.app = app;
+        easel = app.getEasel();
+        fileChooser = new JFileChooser(System.getProperty("user.dir"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        Easel easel = app.getEasel();
-        JFileChooser fileChooser = easel.getFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
         if (fileChooser.showOpenDialog(easel) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
