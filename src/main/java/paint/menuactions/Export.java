@@ -19,18 +19,20 @@ import paint.gui.Easel;
 public class Export extends AbstractAction {
 
     private App app;
-    
+    private Easel easel;
+    private JFileChooser fileChooser;
+
     public Export(App app) {
         super("Export");
         this.app = app;
+        easel = app.getEasel();
+        fileChooser = new JFileChooser(System.getProperty("user.dir"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        JFileChooser fileChooser = easel.getFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
         if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             BufferedImage composite = settings.getLayeredImage().merge();
