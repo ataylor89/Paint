@@ -11,6 +11,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import paint.App;
 import paint.Settings;
 import paint.gui.Easel;
+import paint.gui.Canvas;
+import paint.image.LayeredImage;
+import paint.persistence.PaintObject;
 
 /**
  *
@@ -19,13 +22,11 @@ import paint.gui.Easel;
 public class SaveFileAs extends AbstractAction {
     
     private App app;
-    private Easel easel;
     private JFileChooser fileChooser;
 
     public SaveFileAs(App app) {
         super("Save as");
         this.app = app;
-        easel = app.getEasel();
         fileChooser = new JFileChooser(System.getProperty("user.dir"));
         fileChooser.setFileFilter(new FileNameExtensionFilter("PNT", "pnt"));
     }
@@ -33,11 +34,15 @@ public class SaveFileAs extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         Settings settings = app.getSettings();
+        Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
+        LayeredImage layeredImage = canvas.getLayeredImage();
         if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+            settings.setFile(file);
+            PaintObject paintObject = new PaintObject(settings, layeredImage);
             try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-                settings.setFile(file);
-                out.writeObject(settings);
+                out.writeObject(paintObject);
                 out.flush();
             } catch (IOException ex) {
                 System.err.println(ex);

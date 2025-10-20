@@ -1,7 +1,8 @@
 package paint;
 
-import paint.gui.Canvas;
 import paint.gui.Easel;
+import paint.gui.Canvas;
+import paint.image.LayeredImage;
 
 /**
  *
@@ -17,7 +18,16 @@ public class Notifications {
     
     public void forward(String event) {
         switch (event) {
-            case "restoredDefaults", "openedFile" -> {
+            case "restoredDefaults" -> {
+                Easel easel = app.getEasel();
+                easel.refreshTitle();
+                easel.getToolBar().refresh();
+                Canvas canvas = easel.getCanvas();
+                canvas.setLayeredImage(new LayeredImage(1200, 725));
+                canvas.setBackground(app.getSettings().getBackgroundColor());
+                canvas.repaint();
+            }
+            case "openedFile" -> {
                 Easel easel = app.getEasel();
                 easel.refreshTitle();
                 easel.getToolBar().refresh();

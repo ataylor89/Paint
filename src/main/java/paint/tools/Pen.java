@@ -32,7 +32,7 @@ public class Pen extends Tool {
         int y2 = event.getY();
         Easel easel = app.getEasel();
         Canvas canvas = easel.getCanvas();
-        LayeredImage image = settings.getLayeredImage();
+        LayeredImage image = canvas.getLayeredImage();
         BufferedImage foreground = image.getForeground();
         Graphics cg = canvas.getGraphics();
         cg.setColor(paintColor);

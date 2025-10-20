@@ -3,7 +3,6 @@ package paint;
 import java.awt.Color;
 import javax.swing.SwingUtilities;
 import paint.gui.Easel;
-import paint.image.LayeredImage;
 
 /**
  *
@@ -27,7 +26,6 @@ public class App {
         defaults.setPaintColor(new Color(0,153,255));
         defaults.setMode(Settings.GLIDE);
         defaults.setTool("Brush");
-        defaults.setLayeredImage(new LayeredImage(1200, 725));
         return defaults;
     }
     

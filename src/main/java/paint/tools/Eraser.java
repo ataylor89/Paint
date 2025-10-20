@@ -36,7 +36,7 @@ public class Eraser extends Tool {
         Settings settings = app.getSettings();
         Easel easel = app.getEasel();
         Canvas canvas = easel.getCanvas();
-        LayeredImage image = settings.getLayeredImage();
+        LayeredImage image = canvas.getLayeredImage();
         BufferedImage foreground = image.getForeground();
         int x = event.getX();
         int y = event.getY();

@@ -33,7 +33,7 @@ public class Line extends Tool {
     private void draw(boolean finished) {
         Settings settings = app.getSettings();
         Canvas canvas = app.getEasel().getCanvas();
-        LayeredImage image = settings.getLayeredImage();
+        LayeredImage image = canvas.getLayeredImage();
         BufferedImage foreground = image.getForeground();
         canvas.repaint();
         SwingUtilities.invokeLater(() -> {

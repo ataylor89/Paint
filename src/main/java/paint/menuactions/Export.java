@@ -9,8 +9,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import paint.App;
-import paint.Settings;
 import paint.gui.Easel;
+import paint.gui.Canvas;
 
 /**
  *
@@ -19,23 +19,22 @@ import paint.gui.Easel;
 public class Export extends AbstractAction {
 
     private App app;
-    private Easel easel;
     private JFileChooser fileChooser;
 
     public Export(App app) {
         super("Export");
         this.app = app;
-        easel = app.getEasel();
         fileChooser = new JFileChooser(System.getProperty("user.dir"));
         fileChooser.setFileFilter(new FileNameExtensionFilter("PNG", "png"));
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        Settings settings = app.getSettings();
+        Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
         if (fileChooser.showSaveDialog(easel) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            BufferedImage composite = settings.getLayeredImage().merge();
+            BufferedImage composite = canvas.getLayeredImage().merge();
             try {
                 ImageIO.write(composite, "png", file);
             } catch (IOException ex) {

@@ -4,9 +4,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import paint.App;
-import paint.Settings;
-import paint.gui.Canvas;
 import paint.gui.Easel;
+import paint.gui.Canvas;
 import paint.image.LayeredImage;
 
 /**
@@ -16,18 +15,19 @@ import paint.image.LayeredImage;
 public class FitCanvasToImage extends AbstractAction {
     
     private App app;
-    
+    private Easel easel;
+    private Canvas canvas;
+
     public FitCanvasToImage(App app) {
         super("Fit canvas to image");
         this.app = app;
+        easel = app.getEasel();
+        canvas = easel.getCanvas();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        Settings settings = app.getSettings();
-        Easel easel = app.getEasel();
-        Canvas canvas = easel.getCanvas();
-        LayeredImage image = settings.getLayeredImage();
+        LayeredImage image = canvas.getLayeredImage();
         canvas.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         easel.pack();
         app.notify("resizedCanvas");

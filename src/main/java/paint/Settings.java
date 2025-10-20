@@ -17,7 +17,6 @@ public class Settings implements Serializable {
     private int mode;
     private String tool;
     private File file;
-    private LayeredImage layeredImage;
     
     private transient boolean marquee;
     
@@ -76,14 +75,6 @@ public class Settings implements Serializable {
         return file;
     }
 
-    public void setLayeredImage(LayeredImage layeredImage) {
-        this.layeredImage = layeredImage;
-    }
-    
-    public LayeredImage getLayeredImage() {
-        return layeredImage;
-    }
-    
     public void setMarquee(boolean marquee) {
         this.marquee = marquee;
     }

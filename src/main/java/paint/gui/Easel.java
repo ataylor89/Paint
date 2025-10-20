@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import paint.App;
-import paint.Settings;
 import paint.listeners.WindowListener;
 import paint.tools.Toolbox;
 
@@ -44,8 +43,7 @@ public class Easel extends JFrame {
     }
     
     public void refreshTitle() {
-        Settings settings = app.getSettings();
-        LayeredImage image = settings.getLayeredImage();
+        LayeredImage image = canvas.getLayeredImage();
         setTitle(String.format(
             "Paint ~ Canvas: %dx%d ~ Image: %dx%d",
             canvas.getWidth(),

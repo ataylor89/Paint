@@ -8,6 +8,10 @@ import java.io.ObjectOutputStream;
 import javax.swing.AbstractAction;
 import paint.App;
 import paint.Settings;
+import paint.gui.Easel;
+import paint.gui.Canvas;
+import paint.image.LayeredImage;
+import paint.persistence.PaintObject;
 
 /**
  *
@@ -26,8 +30,12 @@ public class SaveFile extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         Settings settings = app.getSettings();
         File file = settings.getFile();
+        Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
+        LayeredImage layeredImage = canvas.getLayeredImage();
+        PaintObject paintObject = new PaintObject(settings, layeredImage);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            out.writeObject(settings);
+            out.writeObject(paintObject);
             out.flush();
         } catch (IOException ex) {
             System.err.println(ex);

@@ -9,6 +9,7 @@ import javax.swing.JColorChooser;
 import paint.App;
 import paint.Settings;
 import paint.gui.Easel;
+import paint.gui.Canvas;
 
 /**
  *
@@ -17,7 +18,7 @@ import paint.gui.Easel;
 public class SetBackground extends AbstractAction {
 
     private App app;
-    
+
     public SetBackground(App app) {
         super("Set background color");
         this.app = app;
@@ -27,11 +28,12 @@ public class SetBackground extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         Settings settings = app.getSettings();
         Easel easel = app.getEasel();
+        Canvas canvas = easel.getCanvas();
         Color initial = settings.getBackgroundColor();
         Color color = JColorChooser.showDialog(easel, "Choose a color", initial);
         if (color != null) {
             settings.setBackgroundColor(color);
-            BufferedImage background = settings.getLayeredImage().getBackground();
+            BufferedImage background = canvas.getLayeredImage().getBackground();
             Graphics g = background.getGraphics();
             g.setColor(color);
             g.fillRect(0, 0, background.getWidth(), background.getHeight());
