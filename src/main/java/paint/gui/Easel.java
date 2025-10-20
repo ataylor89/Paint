@@ -2,7 +2,6 @@ package paint.gui;
 
 import paint.image.LayeredImage;
 import java.awt.BorderLayout;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import paint.App;
@@ -19,7 +18,6 @@ public class Easel extends JFrame {
     private App app;
     private Toolbox toolbox;
     private MenuBar menuBar;
-    private JFileChooser fileChooser;
     private JPanel contentPane;
     private ToolBar toolbar;
     private Canvas canvas;
@@ -33,7 +31,6 @@ public class Easel extends JFrame {
     public void createAndShowGui() {
         menuBar = new MenuBar(app);
         setJMenuBar(menuBar);
-        fileChooser = new JFileChooser(System.getProperty("user.dir"));
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         toolbar = new ToolBar(app);
@@ -64,14 +61,6 @@ public class Easel extends JFrame {
     
     public Toolbox getToolbox() {
         return toolbox;
-    }
-    
-    public void setFileChooser(JFileChooser fileChooser) {
-        this.fileChooser = fileChooser;
-    }
-    
-    public JFileChooser getFileChooser() {
-        return fileChooser;
     }
     
     public void setToolBar(ToolBar toolbar) {
